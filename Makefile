@@ -1,8 +1,8 @@
-#Dan Dominic Staicu 311CA 2022
+#Dan Dominic Staicu 311CA 2023
 
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c99
-FILES=(wildcard *.c)
+FILES=$(wildcard *.c)
 
 TARGET = image_editor
 
@@ -18,6 +18,6 @@ clean:
 	rm -rf $(TARGET)
 
 run:
-	./image_editor
+	./image_editor > out.ppm
 
 .PHONY: pack clean
