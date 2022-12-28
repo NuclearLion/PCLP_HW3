@@ -1,6 +1,5 @@
 #include "save_funcs.h"
 
-// https://stackoverflow.com/questions/2663559/optional-read-from-stdin-in-c
 void save(photo_t *ph)
 {
 	if (ph->photo_mat == NULL) {
@@ -9,45 +8,49 @@ void save(photo_t *ph)
 	}
 
 	char name_ascii[NAME_AND_ASCII];
+	//init name with \0
 	memset(name_ascii, FALSE, sizeof(name_ascii));
-	//scanf("%s", new_name);
 
-	// if (sscanf(name_ascii, "%s %s", new_name, ascii) == 2) {
-	// 	printf("some dumb message name : %s, ascii: yes: %s\n", new_name, ascii);
-	// } else if (sscanf(name_ascii, "%s", new_name) == 1) {
-	// 	printf("no ascii here just the new name: %s\n", new_name);
-	// } else {
-	// 	printf("how did it even get here???\n");
-	// }
 	getchar();
+	//read parameters of SAVE as one, in order to count them later
 	fgets(name_ascii, NAME_AND_ASCII, stdin);
 	char *ptr = strtok(name_ascii, " ");
+
+	//save the name of file which is the first parameter
 	char *new_name = ptr;
-	// printf("newname: %s\n", new_name);
+	int len_new_name = strlen(new_name);
+
+	//count how many parameters were read
 	int word_cnt = 0;
 	while (ptr != NULL) {
-		//printf("%s\n", ptr);
 		word_cnt++;
 		ptr = strtok(NULL, " ");
 	}
-	// printf("newname2: %s\n", new_name);
 
+	//if there is only one parameter, need to cut the \n from filename
+	if (word_cnt == 1)
+		new_name[len_new_name - 1] = '\0';
+
+	//check if ascii parameter was read
 	if(word_cnt == 2)
 		save_f(ph, new_name, TRUE);
 	else
 		save_f(ph, new_name, FALSE);
 
+	//display succes message at the end
 	succes_save(new_name);
 }
 
 void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 {
+	//create new file for the new photo
 	FILE *text_f = fopen(new_f_name, "wb");
 	if (!text_f) {
 		printf("something went wrong while creating the save file\n");
 		return;
 	}
 
+	//write the magic number acording to SAVE instruction
 	if (bool_ascii) {
 		if (ph->type == 2 || ph->type == 5)
 			print_type(text_f, 2);
@@ -61,7 +64,11 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 	}
 
 	print_dim(text_f, ph);
-	fprintf(text_f, "255\n");
+	//print the 255 max  value
+	// if (ph->type != 6)
+		fprintf(text_f, "255\n");
+	// else
+	// 	fprintf(text_f, "255");
 
 	if (bool_ascii) {
 		for (int i = 0; i < ph->lin; ++i) {
@@ -70,17 +77,12 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 			fprintf(text_f, "\n");
 		}
 	} else {
-		// fprintf(test_photo, "P6\n");
-			// fprintf(test_photo, "%d %d\n", loaded_ph.col/3, loaded_ph.lin);
-			// fprintf(test_photo, "255");
-			// for (int i = 0; i < loaded_ph.lin; ++i) {
-			// 	fwrite(loaded_ph.photo_mat[i], sizeof(int), loaded_ph.col, test_photo);
-			// }
 		for (int i = 0; i < ph->lin; ++i)
 			for (int j = 0; j < ph->col; ++j)
 				fwrite(&ph->photo_mat[i][j], sizeof(char), 1, text_f);
 	}
 
+	//close the saved file
 	fclose(text_f);	
 }
 

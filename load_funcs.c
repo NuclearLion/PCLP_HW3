@@ -3,36 +3,34 @@
 
 void load(photo_t *ph)
 {
+	//read the given filename
 	char name[FILENAME_LEN];
 	scanf("%s", name);
 
+	//try to open the file
 	FILE *photo_f = fopen(name, "rb");
+	//check if the file could be opened
 	if (!photo_f) {
+		//print the error if it couldn't
 		error_load(name);
 		return;
 	}
 
+	//read the magic number
 	char type[TYPE_LEN];
 	memset(type, ZERO, sizeof(type));
-	// for (int i = 0; type[i] != '\0'; ++i)
-	// 	printf("ceva%c", type[i]);
-	
-	//fread(type, sizeof(type), 1, photo_f);
 	fscanf(photo_f, "%s", type);
-	
-	// for (int i = 0; type[i] != '\0'; ++i)
-	// 	printf("%c", type[i]);
-	// printf("sfarsit for\n");
-	
-	//printf("TYPE: %s\n", type);
+	//save the magic number as a hashed type (in order to keep it as int)
 	ph->type = hash_type(type);
 
+	//read and save dimensions of photo
 	fscanf(photo_f, "%d%d", &ph->col, &ph->lin);
 
-	//step over the 255 value
+	//step over the 255 value when reading
 	int _255;
 	fscanf(photo_f, "%d", &_255);
 
+	//acording to the magic number, load the photo as a matrix
 	switch (ph->type)
 	{
 	case 2:
@@ -51,7 +49,9 @@ void load(photo_t *ph)
 		break;
 	}
 
+	//print succes message in the end
 	succes_load(name);
+	//close the file
 	fclose(photo_f);
 }
 
@@ -76,27 +76,25 @@ void p3_load(photo_t *ph, FILE *photo_f)
 void p5_load(photo_t *ph, FILE *photo_f)
 {
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
-	// for (int i = 0; i < ph->lin; ++i) {
-	// 	fread(ph->photo_mat[i], sizeof(int), ph->col, photo_f);
-	// }
+
+	//even I dont know what is this
+	char garbage;
+	fread(&garbage, sizeof(char), 1, photo_f);
 
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
-
-	// for (int i = 0; i < ph->lin; ++i)
-	// 	for (int j = 0; j < ph->col; ++j)
-	// 		fscanf(photo_f, "%d", &ph->photo_mat[i][j]);
 }
 
 void p6_load(photo_t *ph, FILE *photo_f)
 {
 	ph->col *= COL_COLOR;
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
-	// for (int i = 0; i < ph->lin; ++i) {
-	// 	fread(ph->photo_mat[i], sizeof(int), ph->col, photo_f);
-	// }
-	//getchar();
+	
+	//even I dont know what is this
+	char garbage;
+	fread(&garbage, sizeof(char), 1, photo_f);
+
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);

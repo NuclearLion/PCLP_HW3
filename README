@@ -36,3 +36,7 @@ commit 5: loading and saving works with 3 known bugs
 	*implemented (Bug) feature with loading as P6 with wrong colours
 	*after reading SAVE with only one parameter an extra \n is displayed
 	*names of saved documents just aren't ok
+
+commit 6: solved bugs from LOAD and SAVE
+	*solved file names bugs
+	*solved colour bug
