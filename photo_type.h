@@ -1,3 +1,4 @@
+//Dan-Dominic Staicu 311CA 2023
 #ifndef _PHOTO_TYPE_H_
 #define _PHOTO_TYPE_H_
 

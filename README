@@ -1,10 +1,32 @@
 DAN-DOMINIC STAICU 311CA 2023
 Homework 3 of PCLP1
 
-strategie:
-	matricea "globala" a pozei e declarata in main
-	
-	load = citeste numele de la input si verifica daca exita poza cu acest numele
-	si se poate deschide; daca nu, afisam mesaje de eroare; daca exista atunci
-	verificam ce tip de poza e, daca e ASCII sau binar; daca e ASCII, trebuie
-	sa sarim peste comentarii si sa salvam dupa in matrice valorile
+VERSION CONTROL
+
+commit 1: initial commit
+	*added empty README
+
+commit 2: added makefile and main file
+	*added empty main image_editor.c
+	*added makefile
+
+commit 3: maybe LOAD works
+	*added command input from stdin
+	*created hashing for commands in order to use switch
+	*created struct for memorising the loaded photo
+	*implemented basic LOAD
+	*can open a file
+	*checks if file exists
+	*error handling if doesn't exit
+	*check and remember photo type
+	*hashing for photo type
+	*can load a photo regardless it's type
+
+commit 4: work in progress on SAVE
+	*solved memory leak of not closing the file when loading
+	*added succes message for loading
+	*added no image loaded error
+	*implemented new PROBLEM with getchar(), 
+	which cannot be called at the end of any case
+	*refactor - eliminated query file
+	*work in progress on SAVE

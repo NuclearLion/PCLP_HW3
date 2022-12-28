@@ -18,6 +18,7 @@ clean:
 	rm -rf $(TARGET)
 
 run:
-	./image_editor > out.ppm
+	./image_editor 
+# > out.ppm
 
 .PHONY: pack clean

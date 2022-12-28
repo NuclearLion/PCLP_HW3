@@ -1,12 +1,22 @@
+//Dan-Dominic Staicu 311CA 2023
 #ifndef _LOAD_FUNCS_H_
 #define _LOAD_FUNCS_H_
 
 #include <stdio.h>
+#include <string.h>
 
-#include "photo_type.h"
 #include "matrix_op.h"
+#include "errors.h"
+#include "photo_type.h"
+#include "utils.h"
+#include "succes.h"
 
 #define COL_COLOR 3
+#define FILENAME_LEN 258
+#define TYPE_LEN 3
+#define ZERO 0
+
+void load(photo_t *ph);
 
 void p2_load(photo_t *ph, FILE *photo_f);
 

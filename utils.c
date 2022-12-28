@@ -1,6 +1,7 @@
+//Dan-Dominic Staicu 311CA 2023
 #include "utils.h"
 
-//hash the command to a int in order to use switch statement
+
 int hash_command(char *command)
 {
 	
