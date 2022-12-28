@@ -82,7 +82,7 @@ void p5_load(photo_t *ph, FILE *photo_f)
 
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
-			fread(&ph->photo_mat[i][j], sizeof(unsigned int), 1, photo_f);
+			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
 
 	// for (int i = 0; i < ph->lin; ++i)
 	// 	for (int j = 0; j < ph->col; ++j)
@@ -93,7 +93,11 @@ void p6_load(photo_t *ph, FILE *photo_f)
 {
 	ph->col *= COL_COLOR;
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
-	for (int i = 0; i < ph->lin; ++i) {
-		fread(ph->photo_mat[i], sizeof(int), ph->col, photo_f);
-	}
+	// for (int i = 0; i < ph->lin; ++i) {
+	// 	fread(ph->photo_mat[i], sizeof(int), ph->col, photo_f);
+	// }
+	//getchar();
+	for (int i = 0; i < ph->lin; ++i)
+		for (int j = 0; j < ph->col; ++j)
+			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
 }

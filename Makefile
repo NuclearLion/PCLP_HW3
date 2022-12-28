@@ -6,10 +6,13 @@ FILES=$(wildcard *.c)
 
 TARGET = image_editor
 
+all:
+	make clean; make build; make run
+
 build: $(TARGET)
 
 image_editor: image_editor.c
-	$(CC) $(CFLAGS) $(FILES) -o image_editor
+	$(CC) $(CFLAGS) $(FILES) -g -o image_editor
 
 pack:
 	zip -FSr 311CAStaicuDan-Dominic_Tema3.zip README Makefile *.c *.h

@@ -77,7 +77,8 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 			// 	fwrite(loaded_ph.photo_mat[i], sizeof(int), loaded_ph.col, test_photo);
 			// }
 		for (int i = 0; i < ph->lin; ++i)
-			fwrite(ph->photo_mat[i], sizeof(int), ph->col, text_f);
+			for (int j = 0; j < ph->col; ++j)
+				fwrite(&ph->photo_mat[i][j], sizeof(char), 1, text_f);
 	}
 
 	fclose(text_f);	
