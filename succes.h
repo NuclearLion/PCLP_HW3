@@ -7,4 +7,6 @@ void succes_load(char *name_f);
 
 void succes_save(char *name_f);
 
+void succes_select_all();
+
 #endif

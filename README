@@ -40,3 +40,7 @@ commit 5: loading and saving works with 3 known bugs
 commit 6: solved bugs from LOAD and SAVE
 	*solved file names bugs
 	*solved colour bug
+
+commit 7: implemented SELECT (ALL)
+	*implemented SELECT
+	*select splits in SELECT ALL and SELECT <coords>

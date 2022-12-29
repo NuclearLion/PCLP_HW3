@@ -9,3 +9,8 @@ void succes_save(char *name_f)
 {
 	printf("Saved %s\n", name_f);
 }
+
+void succes_select_all()
+{
+	printf("Selected ALL\n");
+}

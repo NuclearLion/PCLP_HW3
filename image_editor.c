@@ -1,6 +1,7 @@
 //Dan-Dominic Staicu 311CA 2023
 #include "load_funcs.h"
 #include "save_funcs.h"
+#include "select_funcs.h"
 
 #define TRUE 1
 #define COMMAND_LENGTH 12
@@ -19,10 +20,17 @@ int main(void)
 			load(&loaded_ph);
 			getchar();
 			break;
-		case 8:
+		case 1:
+			select(&loaded_ph);
+			printf("X top: %d\n", loaded_ph.top_x);
+			printf("Y top: %d\n", loaded_ph.top_y);
+			printf("X bot: %d\n", loaded_ph.bot_x);
+			printf("Y bot: %d\n", loaded_ph.bot_y);
+			break;
+		case 7:
 			save(&loaded_ph);
 			break;
-		case 9:
+		case 8:
 			if (loaded_ph.photo_mat == NULL) {
 				error_no_load();
 				getchar();

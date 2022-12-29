@@ -11,3 +11,7 @@ void error_no_load()
 	printf("No image loaded\n");
 }
 
+void error_select()
+{
+	printf("Invalid coordinates\n");
+}

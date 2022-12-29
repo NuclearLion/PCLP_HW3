@@ -44,8 +44,8 @@ void save(photo_t *ph)
 void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 {
 	//create new file for the new photo
-	FILE *text_f = fopen(new_f_name, "wb");
-	if (!text_f) {
+	FILE *photo_f = fopen(new_f_name, "wb");
+	if (!photo_f) {
 		printf("something went wrong while creating the save file\n");
 		return;
 	}
@@ -53,37 +53,34 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 	//write the magic number acording to SAVE instruction
 	if (bool_ascii) {
 		if (ph->type == 2 || ph->type == 5)
-			print_type(text_f, 2);
+			print_type(photo_f, 2);
 		else 
-			print_type(text_f, 3);
+			print_type(photo_f, 3);
 	} else {
 		if (ph->type == 2 || ph->type == 5)
-			print_type(text_f, 5);
+			print_type(photo_f, 5);
 		else 
-			print_type(text_f, 6);
+			print_type(photo_f, 6);
 	}
 
-	print_dim(text_f, ph);
-	//print the 255 max  value
-	// if (ph->type != 6)
-		fprintf(text_f, "255\n");
-	// else
-	// 	fprintf(text_f, "255");
+	print_dim(photo_f, ph);
 
-	if (bool_ascii) {
+	//print the 255 max  value
+	fprintf(photo_f, "255\n");
+
+	if (bool_ascii)
 		for (int i = 0; i < ph->lin; ++i) {
 			for (int j = 0; j < ph->col; ++j)
-				fprintf(text_f, "%d ", ph->photo_mat[i][j]);
-			fprintf(text_f, "\n");
+				fprintf(photo_f, "%d ", ph->photo_mat[i][j]);
+			fprintf(photo_f, "\n");
 		}
-	} else {
+	else 
 		for (int i = 0; i < ph->lin; ++i)
 			for (int j = 0; j < ph->col; ++j)
-				fwrite(&ph->photo_mat[i][j], sizeof(char), 1, text_f);
-	}
+				fwrite(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
 
 	//close the saved file
-	fclose(text_f);	
+	fclose(photo_f);	
 }
 
 void print_type(FILE *print_f, int type)

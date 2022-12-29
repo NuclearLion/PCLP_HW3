@@ -13,4 +13,8 @@ int hash_command(char *command);
 //hash the type in order to keep an int
 int hash_type(char *type_name);
 
+//swap 2 ints using XOR
+void swap_int(int *a, int *b);
+
+
 #endif

@@ -8,4 +8,6 @@ void error_load(char *file_name);
 
 void error_no_load();
 
+void error_select();
+
 #endif

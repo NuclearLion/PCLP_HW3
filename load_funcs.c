@@ -29,6 +29,7 @@ void load(photo_t *ph)
 	//step over the 255 value when reading
 	int _255;
 	fscanf(photo_f, "%d", &_255);
+	//after this the coursor pointer stays at the end of 255
 
 	//acording to the magic number, load the photo as a matrix
 	switch (ph->type)
@@ -48,6 +49,11 @@ void load(photo_t *ph)
 	default:
 		break;
 	}
+
+	ph->top_x = 0;
+	ph->top_y = 0;
+	ph->bot_x = ph->lin;
+	ph->bot_y = ph->col;
 
 	//print succes message in the end
 	succes_load(name);
