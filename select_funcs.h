@@ -17,4 +17,7 @@
 //main call for SELECT command
 void select(photo_t *ph);
 
+//set coords as full photo is selected
+void select_all(photo_t *ph);
+
 #endif

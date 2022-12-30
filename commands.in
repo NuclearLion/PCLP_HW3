@@ -1,4 +1,5 @@
-LOAD uneq.pgm
-EQUALIZE
-SAVE eq.pgm ascii
+LOAD s.pgm
+SELECT 0 0 3 3
+CROP
+SAVE cropped_s ascii
 EXIT

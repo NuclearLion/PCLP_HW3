@@ -53,3 +53,9 @@ commit 9: EQUALIZE
 	*implemented EQUALIZE
 	*created function for EXIT
 	*some cleaning
+
+commit 10: working on CROP
+	*redone selection logic
+	*reminder to implement loading ignoring #comments
+	*CROP seg fault for colour photos
+	*CROP selecting +1 more pixels thant requested

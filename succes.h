@@ -9,8 +9,10 @@ void succes_load(char *name_f);
 
 void succes_save(char *name_f);
 
-void succes_select_all();
+void succes_select_all(void);
 
-void succes_equalize();
+void succes_equalize(void);
+
+void succes_crop(void);
 
 #endif

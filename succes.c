@@ -10,12 +10,17 @@ void succes_save(char *name_f)
 	printf("Saved %s\n", name_f);
 }
 
-void succes_select_all()
+void succes_select_all(void)
 {
 	printf("Selected ALL\n");
 }
 
-void succes_equalize()
+void succes_equalize(void)
 {
 	printf("Equalize done\n");
+}
+
+void succes_crop(void)
+{
+	printf("Image cropped\n");
 }

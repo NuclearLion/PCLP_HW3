@@ -10,6 +10,7 @@
 #include "photo_type.h"
 #include "utils.h"
 #include "succes.h"
+#include "select_funcs.h"
 
 #define COL_COLOR 3
 #define FILENAME_LEN 258

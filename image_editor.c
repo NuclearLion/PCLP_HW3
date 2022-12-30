@@ -5,6 +5,7 @@
 #include "histo_funcs.h"
 #include "equalize_funcs.h"
 #include "exit_funcs.h"
+#include "crop_funcs.h"
 
 #define TRUE 1
 #define COMMAND_LENGTH 12
@@ -34,6 +35,9 @@ int main(void)
 			break;
 		case 3:
 			equalize(&loaded_ph);
+			break;
+		case 5:
+			crop(&loaded_ph);
 			break;
 		case 7:
 			save(&loaded_ph);

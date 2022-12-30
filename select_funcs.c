@@ -17,8 +17,8 @@ void select(photo_t *ph)
 		if (y1 > y2)
 			swap_int(&y1, &y2);
 
-		//dimension of 1 pixel
-		int px1 = 1;
+		// //dimension of 1 pixel
+		// int px1 = 1;
 
 		//in case photo is type P3 or P6, it's matrix actually has 3 * col_nr
 		//so the selection must start from the firxt value of the selected 
@@ -28,7 +28,7 @@ void select(photo_t *ph)
 				y1 = y1 * 3 - 2;
 			if (y2 != 0)
 				y2 = y2 * 3 - 2;
-			px1 = 3;
+			//px1 = 3;
 		}
 
 		//check if coords are inside the mat
@@ -40,8 +40,8 @@ void select(photo_t *ph)
 		//save the final values of selection
 		ph->top_x = x1;
 		ph->top_y = y1;
-		ph->bot_x = x2 - px1;
-		ph->bot_y = y2 - px1;
+		ph->bot_x = x2;
+		ph->bot_y = y2;
 	} else {
 		//in case SELECT ALL was inputed
 		//read ALL in order to step over it
@@ -49,11 +49,16 @@ void select(photo_t *ph)
 		scanf("%s", all);
 
 		//use extremes as selection coords
-		ph->top_x = 0;
-		ph->top_y = 0;
-		ph->bot_x = ph->lin;
-		ph->bot_y = ph->col;
+		select_all(ph);
 
 		succes_select_all();
 	}
+}
+
+void select_all(photo_t *ph)
+{
+	ph->top_x = 0;
+	ph->top_y = 0;
+	ph->bot_x = ph->lin;
+	ph->bot_y = ph->col - 2;
 }

@@ -52,10 +52,7 @@ void load(photo_t *ph)
 
 	//init the select zone as SELECT ALL
 	//the whole picture is selected
-	ph->top_x = 0;
-	ph->top_y = 0;
-	ph->bot_x = ph->lin;
-	ph->bot_y = ph->col;
+	select_all(ph);
 
 	//print succes message in the end
 	succes_load(name);
