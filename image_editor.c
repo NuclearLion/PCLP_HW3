@@ -2,6 +2,7 @@
 #include "load_funcs.h"
 #include "save_funcs.h"
 #include "select_funcs.h"
+#include "histo_funcs.h"
 
 #define TRUE 1
 #define COMMAND_LENGTH 12
@@ -22,10 +23,9 @@ int main(void)
 			break;
 		case 1:
 			select(&loaded_ph);
-			printf("X top: %d\n", loaded_ph.top_x);
-			printf("Y top: %d\n", loaded_ph.top_y);
-			printf("X bot: %d\n", loaded_ph.bot_x);
-			printf("Y bot: %d\n", loaded_ph.bot_y);
+			break;
+		case 2:
+			histogram(&loaded_ph);
 			break;
 		case 7:
 			save(&loaded_ph);

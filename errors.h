@@ -10,4 +10,6 @@ void error_no_load();
 
 void error_select();
 
+void error_histogram();
+
 #endif

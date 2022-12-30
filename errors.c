@@ -15,3 +15,8 @@ void error_select()
 {
 	printf("Invalid coordinates\n");
 }
+
+void error_histogram()
+{
+	printf("Black and white image needed");
+}

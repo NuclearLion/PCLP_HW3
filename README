@@ -44,3 +44,7 @@ commit 6: solved bugs from LOAD and SAVE
 commit 7: implemented SELECT (ALL)
 	*implemented SELECT
 	*select splits in SELECT ALL and SELECT <coords>
+	*order of coords can be descending
+
+commit 8: implemented histogram
+	*I THINK I implemented it, not sure yet, no checker was published
