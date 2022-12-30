@@ -16,5 +16,7 @@ int hash_type(char *type_name);
 //swap 2 ints using XOR
 void swap_int(int *a, int *b);
 
+//clamp a value between 0 and 255
+double clamp(double pixel);
 
 #endif

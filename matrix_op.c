@@ -1,7 +1,6 @@
 //Dan-Dominic Staicu 311CA 2023
 #include "matrix_op.h"
 
-//alloc memory for a new matrix
 int **alloc_matrix(int n, int m)
 {
 	int **tmp_mat = (int **)malloc(n * sizeof(int *));
@@ -23,8 +22,6 @@ int **alloc_matrix(int n, int m)
 	return tmp_mat;
 }
 
-
-//free memory of a mat
 void free_mat(int **mat, int n)
 {
 	//every single line

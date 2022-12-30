@@ -2,6 +2,7 @@
 
 void save(photo_t *ph)
 {
+	//check if any photo was loaded
 	if (ph->photo_mat == NULL) {
 		error_no_load();
 		return;
@@ -52,12 +53,12 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 
 	//write the magic number acording to SAVE instruction
 	if (bool_ascii) {
-		if (ph->type == 2 || ph->type == 5)
+		if (ph->type == P2 || ph->type == P5)
 			print_type(photo_f, 2);
 		else 
 			print_type(photo_f, 3);
 	} else {
-		if (ph->type == 2 || ph->type == 5)
+		if (ph->type == P2 || ph->type == P5)
 			print_type(photo_f, 5);
 		else 
 			print_type(photo_f, 6);
@@ -65,9 +66,10 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 
 	print_dim(photo_f, ph);
 
-	//print the 255 max  value
+	//print the 255 max value
 	fprintf(photo_f, "255\n");
 
+	//check if ascii parameter was read and write in file according to it
 	if (bool_ascii)
 		for (int i = 0; i < ph->lin; ++i) {
 			for (int j = 0; j < ph->col; ++j)
@@ -107,8 +109,8 @@ void print_type(FILE *print_f, int type)
 
 void print_dim(FILE *print_f, photo_t *ph)
 {
-	if (ph->type == 2 || ph->type == 5)
+	if (ph->type == P2 || ph->type == P5)
 		fprintf(print_f, "%d %d\n", ph->col, ph->lin);
-	else if (ph->type == 3 || ph->type == 6)
-		fprintf(print_f, "%d %d\n", ph->col / 3, ph->lin);
+	else if (ph->type == P3 || ph->type == P6)
+		fprintf(print_f, "%d %d\n", ph->col / INTERPRET_COLS, ph->lin);
 }

@@ -23,7 +23,7 @@ int hash_command(char *command)
 		return 7;
 	if (strcmp(command, "EXIT") == 0)
 		return 8;
-	//for case default
+	//for case default in switch statement
 	return -1;
 }
 
@@ -42,7 +42,19 @@ int hash_type(char *type_name)
 
 void swap_int(int *a, int *b)
 {
+	//maybe insert documentation from wikipedia
 	*a = *a ^ *b;
 	*b = *b ^ *a;
 	*a = *a ^ *b;
+}
+
+double clamp(double pixel)
+{
+	double minimum = 0;
+	double maximum = 255;
+	if (pixel > maximum)
+		return maximum;
+	if (pixel < minimum)
+		return minimum;
+	return pixel;
 }

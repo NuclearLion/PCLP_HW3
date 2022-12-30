@@ -11,7 +11,7 @@ void histogram(photo_t *ph)
 	}
 
 	if (ph->type == 3 || ph->type == 6) {
-		error_histogram();
+		error_balck_white();
 		return;
 	}
 

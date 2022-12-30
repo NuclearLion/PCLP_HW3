@@ -14,3 +14,8 @@ void succes_select_all()
 {
 	printf("Selected ALL\n");
 }
+
+void succes_equalize()
+{
+	printf("Equalize done\n");
+}

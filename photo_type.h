@@ -10,7 +10,7 @@ typedef struct {
 	//number of columns and lines
 	int col, lin;
 
-	//P2 P3 P5 P6
+	//magic number (P2 P3 P5 P6) as an int
 	int type;
 
 	//the actual photo as a matrix

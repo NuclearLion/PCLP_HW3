@@ -12,9 +12,16 @@
 #define NAME_AND_ASCII 263
 #define TRUE 1
 #define FALSE 0
+#define P2 2
+#define P3 3
+#define P5 5
+#define P6 6
+#define INTERPRET_COLS 3
 
+//main call of SAVE command
 void save(photo_t *ph);
 
+//creating the new file and writing in it
 void save_f(photo_t *ph, char *new_f_name, int bool_ascii);
 
 //unhash type in order to save the file

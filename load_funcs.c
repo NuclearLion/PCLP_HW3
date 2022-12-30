@@ -50,6 +50,8 @@ void load(photo_t *ph)
 		break;
 	}
 
+	//init the select zone as SELECT ALL
+	//the whole picture is selected
 	ph->top_x = 0;
 	ph->top_y = 0;
 	ph->bot_x = ph->lin;
@@ -65,6 +67,8 @@ void load(photo_t *ph)
 void p2_load(photo_t *ph, FILE *photo_f)
 {
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
+
+	//read the actual values as text and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fscanf(photo_f, "%d", &ph->photo_mat[i][j]);
@@ -72,8 +76,11 @@ void p2_load(photo_t *ph, FILE *photo_f)
 
 void p3_load(photo_t *ph, FILE *photo_f)
 {
+	//colors use 3 columns for each pixel (RGB)
 	ph->col *= COL_COLOR;
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
+
+	//read the actual values as binary and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fscanf(photo_f, "%d", &ph->photo_mat[i][j]);
@@ -83,10 +90,11 @@ void p5_load(photo_t *ph, FILE *photo_f)
 {
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
 
-	//even I dont know what is this
+	//step over the endline after the 255 max value
 	char garbage;
 	fread(&garbage, sizeof(char), 1, photo_f);
 
+	//read the actual values as text and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
@@ -94,13 +102,15 @@ void p5_load(photo_t *ph, FILE *photo_f)
 
 void p6_load(photo_t *ph, FILE *photo_f)
 {
+	//colors use 3 columns for each pixel (RGB)
 	ph->col *= COL_COLOR;
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
 	
-	//even I dont know what is this
+	//step over the endline after the 255 max value
 	char garbage;
 	fread(&garbage, sizeof(char), 1, photo_f);
 
+	//read the actual values as binary and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
 			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);

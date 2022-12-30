@@ -48,3 +48,8 @@ commit 7: implemented SELECT (ALL)
 
 commit 8: implemented histogram
 	*I THINK I implemented it, not sure yet, no checker was published
+
+commit 9: EQUALIZE
+	*implemented EQUALIZE
+	*created function for EXIT
+	*some cleaning

@@ -10,7 +10,11 @@
 #include "utils.h"
 
 #define ARGS_LEN 25
+#define P3 3
+#define P6 6
+#define ALL_LEN 4
 
+//main call for SELECT command
 void select(photo_t *ph);
 
 #endif

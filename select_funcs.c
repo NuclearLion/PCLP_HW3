@@ -21,8 +21,9 @@ void select(photo_t *ph)
 		int px1 = 1;
 
 		//in case photo is type P3 or P6, it's matrix actually has 3 * col_nr
-		//so the selection
-		if (ph->type == 3 || ph->type == 6) {
+		//so the selection must start from the firxt value of the selected 
+		//pixel (RGB)
+		if (ph->type == P3 || ph->type == P6) {
 			if (y1 != 0)
 				y1 = y1 * 3 - 2;
 			if (y2 != 0)
@@ -43,13 +44,16 @@ void select(photo_t *ph)
 		ph->bot_y = y2 - px1;
 	} else {
 		//in case SELECT ALL was inputed
-		char all[4];
+		//read ALL in order to step over it
+		char all[ALL_LEN];
 		scanf("%s", all);
+
+		//use extremes as selection coords
 		ph->top_x = 0;
 		ph->top_y = 0;
 		ph->bot_x = ph->lin;
 		ph->bot_y = ph->col;
+
 		succes_select_all();
-		return;
 	}
 }

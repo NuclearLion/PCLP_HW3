@@ -6,17 +6,17 @@ void error_load(char *file_name)
 	printf("Failed to load %s\n", file_name);
 }
 
-void error_no_load()
+void error_no_load(void)
 {
 	printf("No image loaded\n");
 }
 
-void error_select()
+void error_select(void)
 {
 	printf("Invalid coordinates\n");
 }
 
-void error_histogram()
+void error_balck_white(void)
 {
 	printf("Black and white image needed");
 }

@@ -6,10 +6,10 @@
 
 void error_load(char *file_name);
 
-void error_no_load();
+void error_no_load(void);
 
-void error_select();
+void error_select(void);
 
-void error_histogram();
+void error_balck_white(void);
 
 #endif

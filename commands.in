@@ -1,0 +1,4 @@
+LOAD uneq.pgm
+EQUALIZE
+SAVE eq.pgm ascii
+EXIT
