@@ -59,3 +59,6 @@ commit 10: working on CROP
 	*reminder to implement loading ignoring #comments
 	*CROP seg fault for colour photos
 	*CROP selecting +1 more pixels thant requested
+
+commit 11: CROP and SELECT in development
+	*maybe messed up crop and select

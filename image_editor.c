@@ -25,10 +25,14 @@ int main(void)
 		switch (hash_command(command)) {
 		case 0:
 			load(&loaded_ph);
-			//getchar();
 			break;
 		case 1:
 			select(&loaded_ph);
+			// for (int i = loaded_ph.top_x; i < loaded_ph.bot_x; ++i) {
+			// 	for (int j = loaded_ph.top_y; j < loaded_ph.bot_y; ++j)
+			// 		printf("%d ", loaded_ph.photo_mat[i][j]);
+			// 	printf("\n");
+			// }
 			break;
 		case 2:
 			histogram(&loaded_ph);
@@ -38,6 +42,7 @@ int main(void)
 			break;
 		case 5:
 			crop(&loaded_ph);
+			printf("colnr in main: %d\n", loaded_ph.col);
 			break;
 		case 7:
 			save(&loaded_ph);

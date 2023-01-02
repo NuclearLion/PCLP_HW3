@@ -1,5 +1,5 @@
-LOAD s.pgm
-SELECT 0 0 3 3
+LOAD bws.pgm
+SELECT 0 1 3 3
 CROP
-SAVE cropped_s ascii
+SAVE cropped_s.pgm ascii
 EXIT

@@ -24,3 +24,11 @@ void succes_crop(void)
 {
 	printf("Image cropped\n");
 }
+
+void succes_select(int *coords)
+{
+	printf("Selected ");
+	for (int i = 0; i < 4; ++i)
+		printf("%d ", coords[i]);
+	printf("\n");
+}

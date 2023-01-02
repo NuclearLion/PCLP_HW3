@@ -15,4 +15,6 @@ void succes_equalize(void);
 
 void succes_crop(void);
 
+void succes_select(int *coords);
+
 #endif
