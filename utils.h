@@ -19,4 +19,9 @@ void swap_int(int *a, int *b);
 //clamp a value between 0 and 255
 double clamp(double pixel);
 
+int clamp_i(int pixel);
+
+//hash values of apply parameters in order to use switch statement
+int hash_apply(char *ker);
+
 #endif

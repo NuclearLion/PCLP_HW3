@@ -1,6 +1,10 @@
 //Dan-Dominic Staicu 311CA 2023
 #include "load_funcs.h"
 
+//todo read photos with if (fscanf("%d")) in order to read only ints and use
+//fscanf("%s") in order to step over the unnecesarry comments
+
+
 void load(photo_t *ph)
 {
 	//read the given filename

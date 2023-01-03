@@ -18,5 +18,15 @@ void error_select(void)
 
 void error_balck_white(void)
 {
-	printf("Black and white image needed");
+	printf("Black and white image needed\n");
+}
+
+void error_apply_parameter(void)
+{
+	printf("APPLY parameter invalid\n");
+}
+
+void error_charlie(void)
+{
+	printf("Easy, Charlie Chaplin\n");
 }

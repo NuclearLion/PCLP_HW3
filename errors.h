@@ -12,4 +12,8 @@ void error_select(void);
 
 void error_balck_white(void);
 
+void error_apply_parameter(void);
+
+void error_charlie(void);
+
 #endif

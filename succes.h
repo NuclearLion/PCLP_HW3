@@ -17,4 +17,6 @@ void succes_crop(void);
 
 void succes_select(int *coords);
 
+void succes_apply(char *parameter);
+
 #endif

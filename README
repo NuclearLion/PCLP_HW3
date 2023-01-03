@@ -65,3 +65,9 @@ commit 11: CROP and SELECT in development
 
 commit 12: fixed SELECT logic and CROP
 	*maybe fixed CROP and SELECT
+
+commit 13: working on APPLY
+	*CHECKER WAS PUBLISHED
+	*repaired select logic
+	*apparantly SELECT and CROP are working
+	*work in progress on apply

@@ -32,3 +32,8 @@ void succes_select(int *coords)
 		printf("%d ", coords[i]);
 	printf("\n");
 }
+
+void succes_apply(char *parameter)
+{
+	printf("APPLY %s DONE\n", parameter);
+}

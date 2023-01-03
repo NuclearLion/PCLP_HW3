@@ -58,3 +58,27 @@ double clamp(double pixel)
 		return minimum;
 	return pixel;
 }
+
+int clamp_i(int pixel)
+{
+	int minimum = 0;
+	int maximum = 255;
+	if (pixel > maximum)
+		return maximum;
+	if (pixel < minimum)
+		return minimum;
+	return pixel;
+}
+
+int hash_apply(char *ker)
+{
+	if (strcmp(ker, "EDGE") == 0)
+		return 0;
+	if (strcmp(ker, "SHARPEN") == 0)
+		return 1;
+	if (strcmp(ker, "BLUR") == 0)
+		return 2;
+	if (strcmp(ker, "GAUSSIAN_BLUR") == 0)
+		return 3;
+	return -1;
+}

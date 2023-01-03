@@ -1,5 +1,4 @@
-LOAD s.ppm
-SELECT 1 1 4 4
-CROP
-SAVE cropped_s.ppm ascii
+LOAD animal.ppm
+APPLY EDGE
+SAVE edge_animal.ppm ascii
 EXIT
