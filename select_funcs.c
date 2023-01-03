@@ -18,7 +18,7 @@ void select(photo_t *ph)
 		initial_values[3] = y2;
 
 
-		printf("y2 after read: %d\n", y2);
+		// printf("y2 after read: %d\n", y2);
 
 		//check input order
 		if (x1 > x2)
@@ -28,33 +28,41 @@ void select(photo_t *ph)
 
 		// //dimension of 1 pixel
 		// int px1 = 1;
-		if (x2 > 1)
-			x2--;
-		if (y2 > 1)
-			y2--;
+		
 
 		//in case photo is type P3 or P6, it's matrix actually has 3 * col_nr
-		//so the selection must start from the firxt value of the selected 
+		//so the selection must start from the first value of the selected 
 		//pixel (RGB)
 		if (ph->type == P3 || ph->type == P6) {
 			if (y1 != 0)
 				y1 *= 3;
 			if (y2 != 0)
-				y2 *= 3;
+				y2 = (y2 - 1) * 3;
 			//px1 = 3;
+		} else { //in case P2 or P5
+			y2--;
 		}
+		x2--;
 
-		//check if coords are inside the mat
-		if (y1 < 0 || y2 > ph->col || x1 < 0 || x2 > ph->lin) { //maybe +1px
-			error_select();
-			return;
+		//check if coords are inside the mat according to photo's type
+		if (ph->type == P3 || ph->type == P6) {
+			//todo
+			if (y1 < 0 || x1 < 0 || x2 >= ph->lin || y2 + 3 > ph->col) {
+				error_select();
+				return;
+			}
+		} else {
+			if (y1 < 0 || y2 >= ph->col || x1 < 0 || x2 >= ph->lin) { //maybe +1px
+				error_select();
+				return;
+			}
 		}
 
 		//save the final values of selection
 		ph->top_x = x1;
 		ph->top_y = y1;
 		ph->bot_x = x2;
-		printf("y2 just before save %d\n", y2);
+		//printf("y2 just before save %d\n", y2);
 		ph->bot_y = y2;
 
 		succes_select(initial_values);
@@ -74,6 +82,10 @@ void select_all(photo_t *ph)
 {
 	ph->top_x = 0;
 	ph->top_y = 0;
-	ph->bot_x = ph->lin;
-	ph->bot_y = ph->col; //for bw i think
+	ph->bot_x = ph->lin - 1;
+
+	if (ph->type == P3 || ph->type == P6)
+		ph->bot_y = ph->col - 3;
+	else
+		ph->bot_y = ph->col; //for bw i think
 }

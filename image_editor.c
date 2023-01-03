@@ -33,6 +33,7 @@ int main(void)
 			// 		printf("%d ", loaded_ph.photo_mat[i][j]);
 			// 	printf("\n");
 			// }
+			printf("x1:%d y1:%d x2:%d y2:%d\n", loaded_ph.top_x, loaded_ph.top_y, loaded_ph.bot_x, loaded_ph.bot_y);
 			break;
 		case 2:
 			histogram(&loaded_ph);
@@ -42,7 +43,7 @@ int main(void)
 			break;
 		case 5:
 			crop(&loaded_ph);
-			printf("colnr in main: %d\n", loaded_ph.col);
+			//printf("colnr in main: %d\n", loaded_ph.col);
 			break;
 		case 7:
 			save(&loaded_ph);

@@ -62,3 +62,6 @@ commit 10: working on CROP
 
 commit 11: CROP and SELECT in development
 	*maybe messed up crop and select
+
+commit 12: fixed SELECT logic and CROP
+	*maybe fixed CROP and SELECT
