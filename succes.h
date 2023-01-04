@@ -19,4 +19,6 @@ void succes_select(int *coords);
 
 void succes_apply(char *parameter);
 
+void succes_rotate(int angle);
+
 #endif

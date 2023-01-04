@@ -7,8 +7,8 @@
 #include "exit_funcs.h"
 #include "crop_funcs.h"
 #include "apply_funcs.h"
+#include "rotate_funcs.h"
 
-#define TRUE 1
 #define COMMAND_LENGTH 12
 
 int main(void) 
@@ -39,6 +39,9 @@ int main(void)
 		case 3:
 			equalize(&loaded_ph);
 			break;
+		case 4:
+			rotate(&loaded_ph);
+			break;
 		case 5:
 			crop(&loaded_ph);
 			break;
@@ -53,12 +56,14 @@ int main(void)
 			break;
 		default:
 			//in case command was not recognized
-			printf("Invalid command\n");
+			error_invalid();
 			break;
 		}
 
 		scanf("%s", command);
 	}
+
+	exit_editor(&loaded_ph);
 	return 0;
 }
 

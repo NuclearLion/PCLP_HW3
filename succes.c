@@ -37,3 +37,8 @@ void succes_apply(char *parameter)
 {
 	printf("APPLY %s DONE\n", parameter);
 }
+
+void succes_rotate(int angle)
+{
+	printf("Rotated %d\n", angle);
+}

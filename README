@@ -86,3 +86,9 @@ commit 16: fixed APPLY
 	*fixed EDGE and SHARPEN
 	*fixed APPLY without parameter bug
 	*TODO run with valgrind
+
+commit 17: working on ROTATE
+	*added new error messages as functions
+	*rotate work in progress
+	*created messages for rotate
+	*cleaned up some dead code

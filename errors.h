@@ -16,4 +16,10 @@ void error_apply_parameter(void);
 
 void error_charlie(void);
 
+void error_rotation_angle(void);
+
+void error_square_sel(void);
+
+void error_invalid(void);
+
 #endif

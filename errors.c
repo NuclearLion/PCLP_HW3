@@ -30,3 +30,18 @@ void error_charlie(void)
 {
 	printf("Easy, Charlie Chaplin\n");
 }
+
+void error_rotation_angle(void)
+{
+	printf("Unsupported rotation angle\n");
+}
+
+void error_square_sel(void)
+{
+	printf("The selection must be square\n");
+}
+
+void error_invalid(void)
+{
+	printf("Invalid command\n");
+}

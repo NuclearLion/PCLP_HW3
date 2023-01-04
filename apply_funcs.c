@@ -1,9 +1,12 @@
+//Dan-Dominic Staicu 311CA 2023
 #include "apply_funcs.h"
 
 void apply(photo_t *ph)
 {
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		error_no_load();
+		char kernel_type[KERNEL_LENGTH];
+		fgets(kernel_type, KERNEL_LENGTH, stdin);
 		return;
 	}
 	
@@ -13,14 +16,14 @@ void apply(photo_t *ph)
 
 	if (strcmp(kernel_type, "\n") == 0)
 	{
-		printf("Invalid command\n");
+		error_invalid();
 		return;
 	}
 
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
-		error_no_load();
-		return;
-	}
+	// if (!ph->photo_mat && !ph->rgb_mat.red) {
+	// 	error_no_load();
+	// 	return;
+	// }
 
 	if (!is_color(ph->type)) {
 		error_charlie();
@@ -30,19 +33,15 @@ void apply(photo_t *ph)
 	switch (hash_apply(kernel_type)) {
 	case 0:
 		edge(ph);
-		//printf("in edge\n");
 		break;
 	case 1:
 		sharpen(ph);
-		//printf("in sharpen\n");
 		break;
 	case 2:
 		box_blur(ph);
-		//printf("in blur\n");
 		break;
 	case 3:
 		gaussian_blur(ph);
-		//printf("in gaussian blur\n");
 		break;
 	default:
 		error_apply_parameter();
@@ -152,10 +151,9 @@ void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
 	//call func to create new mat by maths
 	int **effect = apply_kern(ph, color_ch, kernel, sel_lin, sel_col, coef);
 
-	//overwrite with ph
+	//overwrite ph
 	int ef_i = 0;
 	int ef_j = 0;
-
 	for (int i = ph->top_x; i <= ph->bot_x; ++i)
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
 			color_ch[i][j] = effect[ef_i][ef_j];
@@ -165,20 +163,13 @@ void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
 				++ef_i;
 			}
 		}
-	// for (int i = 0; i < sel_lin; ++i)
-	// 	for (int j = 0; j < sel_col; ++j) {
-	// 		color_ch[old_i][old_j] = effect[i][j];
-	// 		++old_j;
-	// 		if (old_j > ph->bot_y) {
-	// 			old_j = ph->top_y;
-	// 			++old_i;
-	// 		}
-	// 	}
 
 	//free the new mat
 	free_mat(effect, sel_lin);
 }
 
+//alloc new memory and apply the kernel over the selected zone
+//in order to return as a matrix
 int **apply_kern(photo_t *ph, int **ch, int **ker, int lin, int col, int coef)
 {
 	int **result = alloc_matrix(lin, col);

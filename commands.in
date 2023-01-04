@@ -1,4 +1,4 @@
 LOAD p3.ppm
-APPLY SHARPEN
-SAVE 3sharpen_p3.ppm ascii
+SELECT 0 0 10 10
+ROTATE -360
 EXIT
