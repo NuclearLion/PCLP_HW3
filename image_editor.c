@@ -43,7 +43,7 @@ int main(void)
 			crop(&loaded_ph);
 			break;
 		case 6:
-			//apply(&loaded_ph);
+			apply(&loaded_ph);
 			break;
 		case 7:
 			save(&loaded_ph);

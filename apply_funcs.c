@@ -5,16 +5,15 @@ void apply(photo_t *ph)
 	char kernel_type[KERNEL_LENGTH];
 	scanf("%s", kernel_type);
 
-	if (ph->photo_mat == NULL) {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
 		return;
 	}
 
-	if (ph->type == P2 || ph->type == P5) {
+	if (!is_color(ph->type)) {
 		error_charlie();
 		return;
 	}
-
 
 	switch (hash_apply(kernel_type)) {
 	case 0:
@@ -22,12 +21,15 @@ void apply(photo_t *ph)
 		printf("in edge\n");
 		break;
 	case 1:
+		sharpen(ph);
 		printf("in sharpen\n");
 		break;
 	case 2:
+		box_blur(ph);
 		printf("in blur\n");
 		break;
 	case 3:
+		gaussian_blur(ph);
 		printf("in gaussian blur\n");
 		break;
 	default:
@@ -40,11 +42,9 @@ void apply(photo_t *ph)
 
 void edge(photo_t *ph)
 {
-	int lin_sel = ph->bot_x - ph->top_x + 1;
-	int col_sel = ph->bot_y + 2 - ph->top_y + 1;
-	int **ker_zone = alloc_matrix(lin_sel, col_sel);
+	int divide_coef = 1;
 
-	int **edge_k = alloc_matrix(3, 3);
+	int **edge_k = alloc_matrix(KER_MAT_DIM, KER_MAT_DIM);
 	edge_k[0][0] = -1;
 	edge_k[0][1] = -1;
 	edge_k[0][2] = -1;
@@ -55,123 +55,142 @@ void edge(photo_t *ph)
 	edge_k[2][1] = -1;
 	edge_k[2][2] = -1;
 
-	
-	//BIG TODO FUNCTIONS FOR THIS SHIT LOOKING THING
-	//make a func to aplly any filter
-	//pass the photo and matrix of filter to it
+	kern(edge_k, ph->rgb_mat.red, ph, divide_coef);
+	kern(edge_k, ph->rgb_mat.green, ph, divide_coef);
+	kern(edge_k, ph->rgb_mat.blue, ph, divide_coef);
 
+	free_mat(edge_k, KER_MAT_DIM);
+}
 
-	//R channel
-	int ker_i = 0;
-	int ker_j = 0;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-		for (int j = ph->top_y; j <= ph->bot_y + 2; j += 3) {
-			int pix_sum = 0;
+void sharpen(photo_t *ph)
+{
+	int divide_coef = 1;
 
-			//if it has enough nebourghs (vecini)
-			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 3) {
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j - 3] * edge_k[0][0]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j] * edge_k[0][1]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j + 3] * edge_k[0][2]);
-				pix_sum += clamp_i(ph->photo_mat[i][j - 3] * edge_k[1][0]);
-				pix_sum += clamp_i(ph->photo_mat[i][j] * edge_k[1][1]);
-				pix_sum += clamp_i(ph->photo_mat[i][j + 3] * edge_k[1][2]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j - 3] * edge_k[2][0]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j] * edge_k[2][1]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j + 3] * edge_k[2][2]);
+	int **sharpen_k = alloc_matrix(KER_MAT_DIM, KER_MAT_DIM);
+	sharpen_k[0][0] = 0;
+	sharpen_k[0][1] = -1;
+	sharpen_k[0][2] = 0;
+	sharpen_k[1][0] = -1;
+	sharpen_k[1][1] = 5;
+	sharpen_k[1][2] = -1;
+	sharpen_k[2][0] = 0;
+	sharpen_k[2][1] = -1;
+	sharpen_k[2][2] = 0;
 
-				ker_zone[ker_i][ker_j] = clamp_i(pix_sum);
-			} else {
-				ker_zone[ker_i][ker_j] = ph->photo_mat[i][j];
-			}
+	kern(sharpen_k, ph->rgb_mat.red, ph, divide_coef);
+	kern(sharpen_k, ph->rgb_mat.green, ph, divide_coef);
+	kern(sharpen_k, ph->rgb_mat.blue, ph, divide_coef);
 
-			ker_j += 3;
-			if (ker_j > col_sel) {
-				ker_j = 0;
-				++ker_i;
-			}
-		}
-	}
+	free_mat(sharpen_k, KER_MAT_DIM);
+}
 
-	//G channel
-	ker_i = 0;
-	ker_j = 1;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-		for (int j = ph->top_y + 1; j <= ph->bot_y + 2; j += 3) {
-			int pix_sum = 0;
+void box_blur(photo_t *ph)
+{
+	int divide_coef = 9;
 
-			//if it has enough nebourghs (vecini)
-			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 2) {
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j - 3] * edge_k[0][0]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j] * edge_k[0][1]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j + 3] * edge_k[0][2]);
-				pix_sum += clamp_i(ph->photo_mat[i][j - 3] * edge_k[1][0]);
-				pix_sum += clamp_i(ph->photo_mat[i][j] * edge_k[1][1]);
-				pix_sum += clamp_i(ph->photo_mat[i][j + 3] * edge_k[1][2]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j - 3] * edge_k[2][0]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j] * edge_k[2][1]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j + 3] * edge_k[2][2]);
+	int **box_blur_k = alloc_matrix(KER_MAT_DIM, KER_MAT_DIM);
+	box_blur_k[0][0] = 1;
+	box_blur_k[0][1] = 1;
+	box_blur_k[0][2] = 1;
+	box_blur_k[1][0] = 1;
+	box_blur_k[1][1] = 1;
+	box_blur_k[1][2] = 1;
+	box_blur_k[2][0] = 1;
+	box_blur_k[2][1] = 1;
+	box_blur_k[2][2] = 1;
 
-				ker_zone[ker_i][ker_j] = clamp_i(pix_sum);
-			} else {
-				ker_zone[ker_i][ker_j] = ph->photo_mat[i][j];
-			}
+	kern(box_blur_k, ph->rgb_mat.red, ph, divide_coef);
+	kern(box_blur_k, ph->rgb_mat.green, ph, divide_coef);
+	kern(box_blur_k, ph->rgb_mat.blue, ph, divide_coef);
 
-			ker_j += 3;
-			if (ker_j > col_sel) {
-				ker_j = 0;
-				++ker_i;
-			}
-		}
-	}
+	free_mat(box_blur_k, KER_MAT_DIM);
+}
 
-	//B channel
-	ker_i = 0;
-	ker_j = 2;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-		for (int j = ph->top_y + 2; j <= ph->bot_y + 2; j += 3) {
-			int pix_sum = 0;
+void gaussian_blur(photo_t *ph)
+{
+	int divide_coef = 16;
 
-			//if it has enough nebourghs (vecini)
-			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 1) {
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j - 3] * edge_k[0][0]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j] * edge_k[0][1]);
-				pix_sum += clamp_i(ph->photo_mat[i - 1][j + 3] * edge_k[0][2]);
-				pix_sum += clamp_i(ph->photo_mat[i][j - 3] * edge_k[1][0]);
-				pix_sum += clamp_i(ph->photo_mat[i][j] * edge_k[1][1]);
-				pix_sum += clamp_i(ph->photo_mat[i][j + 3] * edge_k[1][2]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j - 3] * edge_k[2][0]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j] * edge_k[2][1]);
-				pix_sum += clamp_i(ph->photo_mat[i + 1][j + 3] * edge_k[2][2]);
+	int **gaussian_blur_k = alloc_matrix(KER_MAT_DIM, KER_MAT_DIM);
+	gaussian_blur_k[0][0] = 1;
+	gaussian_blur_k[0][1] = 2;
+	gaussian_blur_k[0][2] = 1;
+	gaussian_blur_k[1][0] = 2;
+	gaussian_blur_k[1][1] = 4;
+	gaussian_blur_k[1][2] = 2;
+	gaussian_blur_k[2][0] = 1;
+	gaussian_blur_k[2][1] = 2;
+	gaussian_blur_k[2][2] = 1;
 
-				ker_zone[ker_i][ker_j] = clamp_i(pix_sum);
-			} else {
-				ker_zone[ker_i][ker_j] = ph->photo_mat[i][j];
-			}
+	kern(gaussian_blur_k, ph->rgb_mat.red, ph, divide_coef);
+	kern(gaussian_blur_k, ph->rgb_mat.green, ph, divide_coef);
+	kern(gaussian_blur_k, ph->rgb_mat.blue, ph, divide_coef);
 
-			ker_j += 3;
-			if (ker_j > col_sel) {
-				ker_j = 0;
-				++ker_i;
+	free_mat(gaussian_blur_k, KER_MAT_DIM);
+}
+
+//overwrites the main photo with the result of appling kernel 
+//over every color channel
+void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
+{
+	//calculate nr of lines and cols inside the selection
+	int sel_lin = ph->bot_x - ph->top_x + 1;
+	int sel_col = ph->bot_y - ph->top_y + 1;
+
+	//alloc new mat
+	//call func to create new mat by maths
+	int **effect = apply_kern(ph, color_ch, kernel, sel_lin, sel_col, coef);
+
+	//overwrite with ph
+	int old_i = ph->top_x;
+	int old_j = ph->top_y;
+	for (int i = 0; i < sel_lin; ++i)
+		for (int j = 0; j < sel_col; ++j) {
+			color_ch[old_i][old_j] = effect[i][j];
+			++old_j;
+			if (old_j > ph->bot_y) {
+				old_j = ph->top_y;
+				++old_i;
 			}
 		}
-	}
 
-	ker_i = 0;
-	ker_j = 0;
+	//free the new mat
+	free_mat(effect, sel_lin);
+}
+
+int **apply_kern(photo_t *ph, int **ch, int **ker, int lin, int col, int coef)
+{
+	int **result = alloc_matrix(lin, col);
+
+	int res_i = 0;
+	int res_j = 0;
 	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
-			ph->photo_mat[i][j] = ker_zone[ker_i][ker_j];
+			int pix_sum = 0;
 
-			ker_j++;
-			if (ker_j > col_sel) {
-				ker_j = 0;
-				ker_i++;
+			//if the current pixel has neibourghs
+			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 1) {
+				pix_sum += clamp_i(ch[i - 1][j - 1] * ker[0][0] / coef);
+				pix_sum += clamp_i(ch[i - 1][j] * ker[0][1] / coef);
+				pix_sum += clamp_i(ch[i - 1][j + 1] * ker[0][2] / coef);
+				pix_sum += clamp_i(ch[i][j - 1] * ker[1][0] / coef);
+				pix_sum += clamp_i(ch[i][j] * ker[1][1] / coef);
+				pix_sum += clamp_i(ch[i][j + 1] * ker[1][2] / coef);
+				pix_sum += clamp_i(ch[i + 1][j - 1] * ker[2][0] / coef);
+				pix_sum += clamp_i(ch[i + 1][j] * ker[2][1] / coef);
+				pix_sum += clamp_i(ch[i + 1][j + 1] * ker[2][2] / coef);
+
+				result[res_i][res_j] = clamp_i(pix_sum);
+			} else {
+				result[res_i][res_j] = ch[i][j];
+			}
+
+			++res_j;
+			if (res_j > col) {
+				res_j = 0;
+				++res_i;
 			}
 		}
 	}
 
-
-	free_mat(edge_k, 3);
-	free_mat(ker_zone, lin_sel);
+	return result;
 }
