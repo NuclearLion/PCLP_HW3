@@ -2,8 +2,20 @@
 
 void apply(photo_t *ph)
 {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+		error_no_load();
+		return;
+	}
+	
 	char kernel_type[KERNEL_LENGTH];
-	scanf("%s", kernel_type);
+	fgets(kernel_type, KERNEL_LENGTH, stdin);
+	//scanf("%s", kernel_type);
+
+	if (strcmp(kernel_type, "\n") == 0)
+	{
+		printf("Invalid command\n");
+		return;
+	}
 
 	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
@@ -18,19 +30,19 @@ void apply(photo_t *ph)
 	switch (hash_apply(kernel_type)) {
 	case 0:
 		edge(ph);
-		printf("in edge\n");
+		//printf("in edge\n");
 		break;
 	case 1:
 		sharpen(ph);
-		printf("in sharpen\n");
+		//printf("in sharpen\n");
 		break;
 	case 2:
 		box_blur(ph);
-		printf("in blur\n");
+		//printf("in blur\n");
 		break;
 	case 3:
 		gaussian_blur(ph);
-		printf("in gaussian blur\n");
+		//printf("in gaussian blur\n");
 		break;
 	default:
 		error_apply_parameter();
@@ -141,17 +153,27 @@ void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
 	int **effect = apply_kern(ph, color_ch, kernel, sel_lin, sel_col, coef);
 
 	//overwrite with ph
-	int old_i = ph->top_x;
-	int old_j = ph->top_y;
-	for (int i = 0; i < sel_lin; ++i)
-		for (int j = 0; j < sel_col; ++j) {
-			color_ch[old_i][old_j] = effect[i][j];
-			++old_j;
-			if (old_j > ph->bot_y) {
-				old_j = ph->top_y;
-				++old_i;
+	int ef_i = 0;
+	int ef_j = 0;
+
+	for (int i = ph->top_x; i <= ph->bot_x; ++i)
+		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+			color_ch[i][j] = effect[ef_i][ef_j];
+			++ef_j;
+			if (ef_j > sel_col) {
+				ef_j = 0;
+				++ef_i;
 			}
 		}
+	// for (int i = 0; i < sel_lin; ++i)
+	// 	for (int j = 0; j < sel_col; ++j) {
+	// 		color_ch[old_i][old_j] = effect[i][j];
+	// 		++old_j;
+	// 		if (old_j > ph->bot_y) {
+	// 			old_j = ph->top_y;
+	// 			++old_i;
+	// 		}
+	// 	}
 
 	//free the new mat
 	free_mat(effect, sel_lin);
@@ -169,15 +191,15 @@ int **apply_kern(photo_t *ph, int **ch, int **ker, int lin, int col, int coef)
 
 			//if the current pixel has neibourghs
 			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 1) {
-				pix_sum += clamp_i(ch[i - 1][j - 1] * ker[0][0] / coef);
-				pix_sum += clamp_i(ch[i - 1][j] * ker[0][1] / coef);
-				pix_sum += clamp_i(ch[i - 1][j + 1] * ker[0][2] / coef);
-				pix_sum += clamp_i(ch[i][j - 1] * ker[1][0] / coef);
-				pix_sum += clamp_i(ch[i][j] * ker[1][1] / coef);
-				pix_sum += clamp_i(ch[i][j + 1] * ker[1][2] / coef);
-				pix_sum += clamp_i(ch[i + 1][j - 1] * ker[2][0] / coef);
-				pix_sum += clamp_i(ch[i + 1][j] * ker[2][1] / coef);
-				pix_sum += clamp_i(ch[i + 1][j + 1] * ker[2][2] / coef);
+				pix_sum += ch[i - 1][j - 1] * ker[0][0] / coef;
+				pix_sum += ch[i - 1][j] * ker[0][1] / coef;
+				pix_sum += ch[i - 1][j + 1] * ker[0][2] / coef;
+				pix_sum += ch[i][j - 1] * ker[1][0] / coef;
+				pix_sum += ch[i][j] * ker[1][1] / coef;
+				pix_sum += ch[i][j + 1] * ker[1][2] / coef;
+				pix_sum += ch[i + 1][j - 1] * ker[2][0] / coef;
+				pix_sum += ch[i + 1][j] * ker[2][1] / coef;
+				pix_sum += ch[i + 1][j + 1] * ker[2][2] / coef;
 
 				result[res_i][res_j] = clamp_i(pix_sum);
 			} else {

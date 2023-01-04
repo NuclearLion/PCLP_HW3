@@ -64,3 +64,5 @@ int main(void)
 
 
 // diff -w -y ./tasks/image_editor/tests/00-image_editor/00-image_editor.ref ./tasks/image_editor/tests/00-image_editor/00-image_editor.out
+
+// watch test 28 for memups valgrind

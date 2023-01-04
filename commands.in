@@ -1,4 +1,4 @@
 LOAD p3.ppm
-APPLY GAUSSIAN_BLUR
-SAVE GAUSSIAN_BLUR_p3.ppm ascii
+APPLY SHARPEN
+SAVE 3sharpen_p3.ppm ascii
 EXIT
