@@ -7,6 +7,11 @@
 
 #include "photo_type.h"
 
+#define P2 2
+#define P3 3
+#define P5 5
+#define P6 6
+
 //hash the command to a int in order to use switch statement
 int hash_command(char *command);
 
@@ -23,5 +28,7 @@ int clamp_i(int pixel);
 
 //hash values of apply parameters in order to use switch statement
 int hash_apply(char *ker);
+
+int is_color(int type);
 
 #endif

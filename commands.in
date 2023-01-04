@@ -1,4 +1,7 @@
-LOAD animal.ppm
-APPLY EDGE
-SAVE edge_animal.ppm ascii
+LOAD s.ppm
+SELECT 0 0 2 2
+HISTOGRAM
+EQUALIZE
+CROP
+SAVE cropped_sP3.ppm ascii
 EXIT

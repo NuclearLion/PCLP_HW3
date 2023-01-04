@@ -3,7 +3,7 @@
 void select(photo_t *ph)
 {
 	//check if any photo was loaded
-	if (ph->photo_mat == NULL) {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
 		return;
 	}
@@ -12,7 +12,7 @@ void select(photo_t *ph)
 	int x1, y1, x2, y2;
 
 	//BIG TODO
-	//SWAP X WITH Y
+	//wtf is this this creationism
 	if (scanf("%d%d%d%d", &y1, &x1, &y2, &x2)) {
 		int initial_values[4];
 		initial_values[0] = y1;
@@ -25,38 +25,20 @@ void select(photo_t *ph)
 			swap_int(&x1, &x2);
 		if (y1 > y2)
 			swap_int(&y1, &y2);
-		
-		//in case photo is type P3 or P6, it's matrix actually has 3 * col_nr
-		//so the selection must start from the first value of the selected 
-		//pixel (RGB)
-		if (ph->type == P3 || ph->type == P6) {
-			if (y1 != 0)
-				y1 *= 3;
-			if (y2 != 0)
-				y2 = (y2 - 1) * 3;
-		} else { //in case P2 or P5
-			y2--;
-		}
-		x2--;
 
 		//check if coords are inside the mat according to photo's type
-		if (ph->type == P3 || ph->type == P6) {
-			if (y1 < 0 || x1 < 0 || x2 >= ph->lin || y2 + 3 > ph->col) {
-				error_select();
-				return;
-			}
-		} else {
-			if (y1 < 0 || y2 > ph->col || x1 < 0 || x2 > ph->lin) {
-				error_select();
-				return;
-			}
+		if (y1 < 0 || y2 > ph->col || x1 < 0 || x2 > ph->lin) {
+			// printf("y2 : %d\nx2 : %d\n", y2, x2);
+			// printf("col : %d\nlin : %d\n", ph->col, ph->lin);
+			error_select();
+			return;
 		}
 
 		//save the final values of selection
 		ph->top_x = x1;
 		ph->top_y = y1;
-		ph->bot_x = x2;
-		ph->bot_y = y2;
+		ph->bot_x = x2 - 1;
+		ph->bot_y = y2 - 1;
 
 		succes_select(initial_values);
 	} else {
@@ -76,9 +58,5 @@ void select_all(photo_t *ph)
 	ph->top_x = 0;
 	ph->top_y = 0;
 	ph->bot_x = ph->lin - 1;
-
-	if (ph->type == P3 || ph->type == P6)
-		ph->bot_y = ph->col - 3;
-	else
-		ph->bot_y = ph->col;
+	ph->bot_y = ph->col - 1;
 }

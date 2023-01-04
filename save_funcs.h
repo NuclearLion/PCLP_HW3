@@ -12,10 +12,6 @@
 #define NAME_AND_ASCII 263
 #define TRUE 1
 #define FALSE 0
-#define P2 2
-#define P3 3
-#define P5 5
-#define P6 6
 #define INTERPRET_COLS 3
 
 //main call of SAVE command

@@ -17,6 +17,9 @@ int main(void)
 	photo_t loaded_ph;
 	//init the matrix as NULL in order to check if anything was loaded
 	loaded_ph.photo_mat = NULL;
+	loaded_ph.rgb_mat.red = NULL;
+	loaded_ph.rgb_mat.green = NULL;
+	loaded_ph.rgb_mat.blue = NULL;
 
 	char command[COMMAND_LENGTH];
 	scanf("%s", command);
@@ -29,12 +32,6 @@ int main(void)
 			break;
 		case 1:
 			select(&loaded_ph);
-			// for (int i = loaded_ph.top_x; i < loaded_ph.bot_x; ++i) {
-			// 	for (int j = loaded_ph.top_y; j < loaded_ph.bot_y; ++j)
-			// 		printf("%d ", loaded_ph.photo_mat[i][j]);
-			// 	printf("\n");
-			// }
-			//printf("x1:%d y1:%d x2:%d y2:%d\n", loaded_ph.top_x, loaded_ph.top_y, loaded_ph.bot_x, loaded_ph.bot_y);
 			break;
 		case 2:
 			histogram(&loaded_ph);
@@ -44,10 +41,9 @@ int main(void)
 			break;
 		case 5:
 			crop(&loaded_ph);
-			//printf("colnr in main: %d\n", loaded_ph.col);
 			break;
 		case 6:
-			apply(&loaded_ph);
+			//apply(&loaded_ph);
 			break;
 		case 7:
 			save(&loaded_ph);
@@ -65,3 +61,6 @@ int main(void)
 	}
 	return 0;
 }
+
+
+// diff -w -y ./tasks/image_editor/tests/00-image_editor/00-image_editor.ref ./tasks/image_editor/tests/00-image_editor/00-image_editor.out

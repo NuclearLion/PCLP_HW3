@@ -82,3 +82,10 @@ int hash_apply(char *ker)
 		return 3;
 	return -1;
 }
+
+int is_color(int type)
+{
+	if (type == P2 || type == P5)
+		return 0;
+	return 1;
+}

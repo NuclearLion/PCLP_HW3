@@ -71,3 +71,9 @@ commit 13: working on APPLY
 	*repaired select logic
 	*apparantly SELECT and CROP are working
 	*work in progress on apply
+
+commit 14: refactor RGB
+	*refactored logic for RGB photos
+	*in order to have 3 columns in a greater matrix for each value, now it
+	saves 3 matrixes with the exact number of lins and cols, one for each
+	color channel

@@ -77,14 +77,18 @@ void p2_load(photo_t *ph, FILE *photo_f)
 
 void p3_load(photo_t *ph, FILE *photo_f)
 {
-	//colors use 3 columns for each pixel (RGB)
-	ph->col *= COL_COLOR;
-	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
+	//alloc memory for every colour matrix
+	ph->rgb_mat.red = alloc_matrix(ph->lin, ph->col);
+	ph->rgb_mat.green = alloc_matrix(ph->lin, ph->col);
+	ph->rgb_mat.blue = alloc_matrix(ph->lin, ph->col);
 
-	//read the actual values as binary and load them in memory
+	//read the actual values as text and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
-		for (int j = 0; j < ph->col; ++j)
-			fscanf(photo_f, "%d", &ph->photo_mat[i][j]);
+		for (int j = 0; j < ph->col; ++j) {
+			fscanf(photo_f, "%d", &ph->rgb_mat.red[i][j]);
+			fscanf(photo_f, "%d", &ph->rgb_mat.green[i][j]);
+			fscanf(photo_f, "%d", &ph->rgb_mat.blue[i][j]);
+		}
 }
 
 void p5_load(photo_t *ph, FILE *photo_f)
@@ -93,26 +97,31 @@ void p5_load(photo_t *ph, FILE *photo_f)
 
 	//step over the endline after the 255 max value
 	char garbage;
-	fread(&garbage, sizeof(char), 1, photo_f);
-
-	//read the actual values as text and load them in memory
-	for (int i = 0; i < ph->lin; ++i)
-		for (int j = 0; j < ph->col; ++j)
-			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
-}
-
-void p6_load(photo_t *ph, FILE *photo_f)
-{
-	//colors use 3 columns for each pixel (RGB)
-	ph->col *= COL_COLOR;
-	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
-	
-	//step over the endline after the 255 max value
-	char garbage;
-	fread(&garbage, sizeof(char), 1, photo_f);
+	fread(&garbage, 1, 1, photo_f);
 
 	//read the actual values as binary and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
-			fread(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
+			fread(&ph->photo_mat[i][j], 1, 1, photo_f);
+}
+
+void p6_load(photo_t *ph, FILE *photo_f)
+{
+	//alloc memory for every colour matrix
+	ph->rgb_mat.red = alloc_matrix(ph->lin, ph->col);
+	ph->rgb_mat.green = alloc_matrix(ph->lin, ph->col);
+	ph->rgb_mat.blue = alloc_matrix(ph->lin, ph->col);
+
+	//step over the endline after the 255 max value
+	char garbage;
+	fread(&garbage, 1, 1, photo_f);
+
+	//read the actual values as binary and load them in memory
+	for (int i = 0; i < ph->lin; ++i)
+		for (int j = 0; j < ph->col; ++j) {
+			//todo 1 bcs of sizeof char can be different on systems
+			fread(&ph->rgb_mat.red[i][j], 1, 1, photo_f);
+			fread(&ph->rgb_mat.green[i][j], 1, 1, photo_f);
+			fread(&ph->rgb_mat.blue[i][j], 1, 1, photo_f);
+		}
 }

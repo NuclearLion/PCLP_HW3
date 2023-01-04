@@ -7,9 +7,8 @@
 #include "matrix_op.h"
 #include "select_funcs.h"
 
-#define P2 2
-#define P5 5
-
 void crop(photo_t *ph);
+
+int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col);
 
 #endif

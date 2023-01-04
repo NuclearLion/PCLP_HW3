@@ -10,8 +10,6 @@
 #include "matrix_op.h"
 
 #define KERNEL_LENGTH 14
-#define P2 2
-#define P5 5
 
 void apply(photo_t *ph);
 

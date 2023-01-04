@@ -2,12 +2,12 @@
 
 void equalize(photo_t *ph)
 {
-	if (ph->photo_mat == NULL) {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
 		return;
 	}
 
-	if (ph->type == 3 || ph->type == 6) { //maybe define P3 and P6
+	if (is_color(ph->type)) {
 		error_balck_white();
 		return;
 	}
@@ -24,7 +24,6 @@ void equalize(photo_t *ph)
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j) {
 			int old_pixel = ph->photo_mat[i][j];
-			// int frq_curent_pixel = pixel_freq[ph->photo_mat[i][j]];
 			int new = (int)round(eq_pixel(old_pixel, area, pixel_freq));
 			ph->photo_mat[i][j] = new;
 		}

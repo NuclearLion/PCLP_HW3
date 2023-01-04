@@ -5,17 +5,15 @@ void histogram(photo_t *ph)
 	int stars, bins;
 	scanf("%d%d", &stars, &bins);
 
-	if (ph->photo_mat == NULL) {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
 		return;
 	}
 
-	if (ph->type == 3 || ph->type == 6) {
+	if (is_color(ph->type)) {
 		error_balck_white();
 		return;
 	}
-
-	//formula: stars_on_line = val_freq/max_freq * stars
 
 	int pixel_freq[VALS];
 	memset(pixel_freq, ZERO, sizeof(pixel_freq));
@@ -24,13 +22,7 @@ void histogram(photo_t *ph)
 		for (int j = 0; j < ph->col; ++j)
 			++pixel_freq[ph->photo_mat[i][j]];
 
-	// for (int i = 0; i < 256; ++i) {
-	// 	printf("%d: %d\n", i, pixel_freq[i]);
-	// }
-
-
 	int bin_step = VALS / bins;
-	//printf("bin step: %d\n", bin_step);
 	int *bin_val;
 	bin_val = calloc(bins, sizeof(int));
 
@@ -43,15 +35,6 @@ void histogram(photo_t *ph)
 			val_max = bin_val[bin_index];
 		++bin_index;
 	}
-
-	// for (int i = 0; i <= bin_index; ++i)
-	// 	printf("%d bin value: %d\n", i, bin_val[i]);
-	// printf("val max: %d\n", val_max);
-
-	// //check zone
-	// for (int i = 0; i < bin_index; ++i) {
-	// 	printf("%d\n", bin_val[i]);
-	// }
 
 	for (int i = 0; i < bins; ++i) {
 		int stars_on_line = bin_val[i] * stars / val_max;

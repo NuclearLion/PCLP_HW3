@@ -3,7 +3,7 @@
 void save(photo_t *ph)
 {
 	//check if any photo was loaded
-	if (ph->photo_mat == NULL) {
+	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
 		error_no_load();
 		return;
 	}
@@ -64,22 +64,41 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 			print_type(photo_f, 6);
 	}
 
-	print_dim(photo_f, ph);
+	fprintf(photo_f, "%d %d\n", ph->col, ph->lin);
 
 	//print the 255 max value
 	fprintf(photo_f, "255\n");
 
 	//check if ascii parameter was read and write in file according to it
 	if (bool_ascii)
-		for (int i = 0; i < ph->lin; ++i) {
-			for (int j = 0; j < ph->col; ++j)
-				fprintf(photo_f, "%d ", ph->photo_mat[i][j]);
-			fprintf(photo_f, "\n");
-		}
-	else 
-		for (int i = 0; i < ph->lin; ++i)
-			for (int j = 0; j < ph->col; ++j)
-				fwrite(&ph->photo_mat[i][j], sizeof(char), 1, photo_f);
+		if (ph->type == P2 || ph->type == P5)
+			for (int i = 0; i < ph->lin; ++i) {
+				for (int j = 0; j < ph->col; ++j)
+					fprintf(photo_f, "%d ", ph->photo_mat[i][j]);
+				fprintf(photo_f, "\n");
+			}
+		else
+			for (int i = 0; i < ph->lin; ++i) {
+				for (int j = 0; j < ph->col; ++j) {
+					fprintf(photo_f, "%d ", ph->rgb_mat.red[i][j]);
+					fprintf(photo_f, "%d ", ph->rgb_mat.green[i][j]);
+					fprintf(photo_f, "%d ", ph->rgb_mat.blue[i][j]);
+				}
+				fprintf(photo_f, "\n");
+			}
+	else
+		if (ph->type == P2 || ph->type == P5)
+			for (int i = 0; i < ph->lin; ++i)
+				for (int j = 0; j < ph->col; ++j)
+					fwrite(&ph->photo_mat[i][j], 1, 1, photo_f);
+		else
+			for (int i = 0; i < ph->lin; ++i) {
+				for (int j = 0; j < ph->col; ++j) {
+					fwrite(&ph->rgb_mat.red[i][j], 1, 1, photo_f);
+					fwrite(&ph->rgb_mat.green[i][j], 1, 1, photo_f);
+					fwrite(&ph->rgb_mat.blue[i][j], 1, 1, photo_f);
+				}
+			}
 
 	//close the saved file
 	fclose(photo_f);	
@@ -105,12 +124,4 @@ void print_type(FILE *print_f, int type)
 		fprintf(stderr, "given type doesn't exit\n");
 		break;
 	}
-}
-
-void print_dim(FILE *print_f, photo_t *ph)
-{
-	if (ph->type == P2 || ph->type == P5)
-		fprintf(print_f, "%d %d\n", ph->col, ph->lin);
-	else if (ph->type == P3 || ph->type == P6)
-		fprintf(print_f, "%d %d\n", ph->col / INTERPRET_COLS, ph->lin);
 }
