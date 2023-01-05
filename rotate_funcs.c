@@ -110,10 +110,12 @@ void overwrite_rotate(photo_t *ph, int **mat, int lin, int col, int dir)
 
 int **rotate_right(photo_t *ph, int **mat, int lin, int col)
 {
+	//lin and col are actually equal lol u dumb fuck
 	int **rotated = alloc_matrix(lin, col);
 
 	int new_i = 0;
-	int new_j = ph->bot_y;
+	int new_j = col - 1;
+
 	for (int i = ph->top_x; i <= ph->bot_x; ++i)
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
 			rotated[new_i][new_j] = mat[i][j];
@@ -123,7 +125,13 @@ int **rotate_right(photo_t *ph, int **mat, int lin, int col)
 				--new_j;
 			}
 		}
-
+	// for (int i = ph->top_x; i <= ph->bot_x; ++i) {
+	// 	for (int j = ph->top_y; j <= ph->bot_y; ++j)
+	// 		printf("%d ", mat[i][j]);
+	// 	printf("\n");
+	// }
+	
+	
 	return rotated;
 }
 
@@ -131,14 +139,14 @@ int **rotate_left(photo_t *ph, int **mat, int lin, int col)
 {
 	int **rotated = alloc_matrix(lin, col);
 
-	int new_i = ph->bot_x;
+	int new_i = lin - 1;
 	int new_j = 0;
 	for (int i = ph->top_x; i <= ph->bot_x; ++i)
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
 			rotated[new_i][new_j] = mat[i][j];
 			--new_i;
 			if (new_i < 0) {
-				new_i = ph->bot_x;
+				new_i = lin - 1;
 				++new_j;
 			}
 		}

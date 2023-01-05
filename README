@@ -98,3 +98,6 @@ commit 18: ROTATE for SELECT ALL working
 	*rotate not working for selections on P3 P6
 	*rotate working on SELECT ALL P2 P5
 	*rotate working on SELECT ALL P3 P6
+
+commit 19: Fixed ROTATE
+	*fixed bug with rotate not working on selections inside the photo
