@@ -92,3 +92,9 @@ commit 17: working on ROTATE
 	*rotate work in progress
 	*created messages for rotate
 	*cleaned up some dead code
+
+commit 18: ROTATE for SELECT ALL working
+	*rotate not working for selections on P2 P5
+	*rotate not working for selections on P3 P6
+	*rotate working on SELECT ALL P2 P5
+	*rotate working on SELECT ALL P3 P6

@@ -1,4 +1,5 @@
-LOAD p3.ppm
-SELECT 0 0 10 10
-ROTATE -360
+LOAD rotate.pgm
+SELECT 1 1 4 4
+ROTATE 90
+SAVE rotated90.pgm ascii
 EXIT
