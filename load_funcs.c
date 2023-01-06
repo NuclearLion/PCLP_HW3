@@ -23,6 +23,8 @@ void load(photo_t *ph)
 	//if any mat was loaded before, gracefully free it
 	//if (ph->photo_mat != NULL || ph->rgb_mat.red != NULL)
 	//free_photo(ph);
+
+
 	if (ph->photo_mat != NULL) {
 		//free_mat(ph->photo_mat, ph->lin);
 		for (int i = 0; i < ph->lin; ++i)
@@ -31,6 +33,8 @@ void load(photo_t *ph)
 
 		ph->photo_mat = NULL;
 	}
+
+
 	// 	free(ph);
 	// 	// ph->photo_mat = NULL;
 

@@ -107,3 +107,7 @@ commit 20: unconditional jump at save
 	*start grade = 16.6666/90 + 10 README = 26.6666
 	*added freeing matrix before loading a new one
 	*detected bug with uncoditional jump at save
+
+commit 21: fixed SAVE unconditional jump
+	*problem was tracked from LOAD alloc_matrix
+	*changed from malloc to calloc in alloc_matrix()

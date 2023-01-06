@@ -3,7 +3,7 @@
 
 int **alloc_matrix(int n, int m)
 {
-	int **tmp_mat = (int **)malloc(n * sizeof(int *));
+	int **tmp_mat = (int **)calloc(n, sizeof(int *));
 	//check if the alloc was succesfull
 	//if failed, free all the memory
 	if (!tmp_mat) {
@@ -12,7 +12,7 @@ int **alloc_matrix(int n, int m)
 	}
 	//alloc memory for every line inside the mat
 	for (int i = 0; i < n; ++i) {
-		tmp_mat[i] = (int *)malloc(m * sizeof(int));
+		tmp_mat[i] = (int *)calloc(m, sizeof(int));
 		if (!tmp_mat[i]) {
 			fprintf(stderr, "malloc failed in alloc_mat\n");
 			free_mat(tmp_mat, i);

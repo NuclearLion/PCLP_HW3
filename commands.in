@@ -1,6 +1,4 @@
 LOAD input/s.pgm
-SELECT 50 100 150 300
-CROP
 SAVE personal/ss_c_ba_1a.pgm ascii
 LOAD input/s.pgm
 SELECT 0 0 272 271
