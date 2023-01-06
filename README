@@ -132,3 +132,6 @@ commit 24: 93/110
 commit 25: 95/110
 	*fixed HISTOGRAM wrong parameters
 	*cleaned some comments
+
+commit 26: 100/110
+	*fixed ROTATE read error

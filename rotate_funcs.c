@@ -2,15 +2,15 @@
 
 void rotate(photo_t *ph)
 {
+	//init and read the angle of rotation
+	int angle;
+	scanf("%d", &angle);
+
 	//check if any photo was loaded
 	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		error_no_load();
 		return;
 	}
-
-	//init and read the angle of rotation
-	int angle;
-	scanf("%d", &angle);
 
 	//check if the rotation angle is permited
 	if (angle < -360 || angle > 360 || angle % 90 != 0) {
@@ -20,10 +20,6 @@ void rotate(photo_t *ph)
 
 	//count of rotations of 90 degrees
 	int rot_cnt = angle / 90;
-
-	// printf("before first for\n");
-	// printf("lines: %d, cols: %d\n", ph->lin, ph->col);
-	// printf("x bot: %d, y bot: %d\n", ph->bot_x, ph->bot_y);
 
 	//if its selected the whole photo
 	if (ph->top_x == 0 && ph->top_y == 0 && 
