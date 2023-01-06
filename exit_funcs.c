@@ -3,7 +3,7 @@
 void exit_editor(photo_t *ph)
 {
 	//check if any kind of photo was loaded
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		//if not, print error and contiune running the program
 		error_no_load();
 		getchar();

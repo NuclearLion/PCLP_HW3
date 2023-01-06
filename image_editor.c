@@ -63,6 +63,8 @@ int main(void)
 			break;
 		default:
 			//in case command was not recognized
+			char trash[100];
+			fgets(trash, 100, stdin);
 			error_invalid();
 			break;
 		}

@@ -111,3 +111,9 @@ commit 20: unconditional jump at save
 commit 21: fixed SAVE unconditional jump
 	*problem was tracked from LOAD alloc_matrix
 	*changed from malloc to calloc in alloc_matrix()
+
+commit 22: 45/110
+	*fixed APPLY error message when command was ok
+	*fixed 2 invalid command error messages for only one command
+	*fixed BLUR and GAUSSIAN_BLUR result accuracy
+	*fixed reading GAUSSIAN_BL only

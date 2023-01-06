@@ -99,5 +99,10 @@ void free_photo(photo_t *ph)
 		free(ph->rgb_mat.green);
 		free(ph->rgb_mat.blue);
 	}
-	//free(ph);
+}
+
+void trash_invalid(void)
+{
+	char trash_[TRASH_LEN];
+	fgets(trash_, TRASH_LEN, stdin);
 }

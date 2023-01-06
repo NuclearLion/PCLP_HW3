@@ -20,6 +20,12 @@ void apply(photo_t *ph)
 		return;
 	}
 
+	//remove the space from before and \n at the end
+	for (int i = 1; kernel_type[i]; ++i)
+		kernel_type[i - 1] = kernel_type[i];
+	
+	kernel_type[strlen(kernel_type) - 2] = '\0';
+
 	// if (!ph->photo_mat && !ph->rgb_mat.red) {
 	// 	error_no_load();
 	// 	return;
@@ -29,7 +35,7 @@ void apply(photo_t *ph)
 		error_charlie();
 		return;
 	}
-
+	//printf("kernel type: %s\n", kernel_type);
 	switch (hash_apply(kernel_type)) {
 	case 0:
 		edge(ph);
@@ -182,15 +188,17 @@ int **apply_kern(photo_t *ph, int **ch, int **ker, int lin, int col, int coef)
 
 			//if the current pixel has neibourghs
 			if (i != 0 && i != ph->lin - 1 && j != 0 && j != ph->col - 1) {
-				pix_sum += ch[i - 1][j - 1] * ker[0][0] / coef;
-				pix_sum += ch[i - 1][j] * ker[0][1] / coef;
-				pix_sum += ch[i - 1][j + 1] * ker[0][2] / coef;
-				pix_sum += ch[i][j - 1] * ker[1][0] / coef;
-				pix_sum += ch[i][j] * ker[1][1] / coef;
-				pix_sum += ch[i][j + 1] * ker[1][2] / coef;
-				pix_sum += ch[i + 1][j - 1] * ker[2][0] / coef;
-				pix_sum += ch[i + 1][j] * ker[2][1] / coef;
-				pix_sum += ch[i + 1][j + 1] * ker[2][2] / coef;
+				pix_sum += ch[i - 1][j - 1] * ker[0][0];
+				pix_sum += ch[i - 1][j] * ker[0][1];
+				pix_sum += ch[i - 1][j + 1] * ker[0][2];
+				pix_sum += ch[i][j - 1] * ker[1][0];
+				pix_sum += ch[i][j] * ker[1][1];
+				pix_sum += ch[i][j + 1] * ker[1][2];
+				pix_sum += ch[i + 1][j - 1] * ker[2][0];
+				pix_sum += ch[i + 1][j] * ker[2][1];
+				pix_sum += ch[i + 1][j + 1] * ker[2][2];
+
+				pix_sum /= coef;
 
 				result[res_i][res_j] = clamp_i(pix_sum);
 			} else {

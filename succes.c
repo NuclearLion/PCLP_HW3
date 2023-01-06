@@ -35,7 +35,7 @@ void succes_select(int *coords)
 
 void succes_apply(char *parameter)
 {
-	printf("APPLY %s DONE\n", parameter);
+	printf("APPLY %s done\n", parameter);
 }
 
 void succes_rotate(int angle)

@@ -1,33 +1,5 @@
-LOAD input/s.pgm
-SAVE personal/ss_c_ba_1a.pgm ascii
-LOAD input/s.pgm
-SELECT 0 0 272 271
-CROP
-SAVE personal/ss_c_ba_2a.pgm ascii
-LOAD input/s.pgm
-SELECT 300 300 600 480
-CROP
-CROP
-SELECT ALL
-CROP
-SELECT 0 0 300 180
-CROP
-SAVE personal/ss_c_ba_3a.pgm ascii
-LOAD input/s.ppm
+LOAD p3.ppm
 SELECT 50 100 150 300
-CROP
-SAVE personal/ss_c_ba_1a.ppm ascii
-LOAD input/s.ppm
-SELECT 0 0 272 271
-CROP
-SAVE personal/ss_c_ba_2a.ppm ascii
-LOAD input/s.ppm
-SELECT 300 300 600 480
-CROP
-CROP
-SELECT ALL
-CROP
-SELECT 0 0 300 180
-CROP
-SAVE personal/ss_c_ba_3a.ppm ascii
+APPLY GAUSSIAN_BLUR
+SAVE personal/gaussian_blured_p3.ppm ascii
 EXIT

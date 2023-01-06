@@ -9,7 +9,7 @@
 #include "utils.h"
 #include "matrix_op.h"
 
-#define KERNEL_LENGTH 14
+#define KERNEL_LENGTH 20
 #define KER_MAT_DIM 3
 
 void apply(photo_t *ph);

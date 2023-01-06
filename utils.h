@@ -8,6 +8,7 @@
 
 #include "photo_type.h"
 
+#define TRASH_LEN 100
 #define P2 2
 #define P3 3
 #define P5 5
@@ -33,5 +34,7 @@ int hash_apply(char *ker);
 int is_color(int type);
 
 void free_photo(photo_t *ph);
+
+void trash_invalid(void);
 
 #endif
