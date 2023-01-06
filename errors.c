@@ -13,7 +13,7 @@ void error_no_load(void)
 
 void error_select(void)
 {
-	printf("Invalid coordinates\n");
+	printf("Invalid set of coordinates\n");
 }
 
 void error_balck_white(void)

@@ -1,5 +1,2 @@
-LOAD p3.ppm
-SELECT 50 100 150 300
-APPLY GAUSSIAN_BLUR
-SAVE personal/gaussian_blured_p3.ppm ascii
+LOAD input/b.ppm
 EXIT

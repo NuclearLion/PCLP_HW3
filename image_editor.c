@@ -28,6 +28,8 @@ int main(void)
 	loaded_ph.top_y = 0;
 	loaded_ph.type = 0;
 
+	int bool_load = FALSE;
+
 	char command[COMMAND_LENGTH];
 	scanf("%s", command);
 
@@ -35,7 +37,7 @@ int main(void)
 		//"hash" the command into a code in order to be able to use switch
 		switch (hash_command(command)) {
 		case 0:
-			load(&loaded_ph);
+			load(&loaded_ph, &bool_load);
 			break;
 		case 1:
 			select(&loaded_ph);
@@ -63,8 +65,7 @@ int main(void)
 			break;
 		default:
 			//in case command was not recognized
-			char trash[100];
-			fgets(trash, 100, stdin);
+			trash_invalid();
 			error_invalid();
 			break;
 		}
@@ -72,10 +73,10 @@ int main(void)
 		scanf("%s", command);
 	}
 
+	//in case while failed
 	exit_editor(&loaded_ph);
 	return 0;
 }
-
 
 // diff -w -y ./tasks/image_editor/tests/00-image_editor/00-image_editor.ref ./tasks/image_editor/tests/00-image_editor/00-image_editor.out
 

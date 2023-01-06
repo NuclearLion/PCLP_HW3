@@ -2,29 +2,35 @@
 
 void select(photo_t *ph)
 {
-	//check if any photo was loaded
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
-		error_no_load();
-		return;
-	}
-
 	//it can be select or select all
 	int x1, y1, x2, y2;
 
 	//BIG TODO
 	//wtf is this this creationism
 	if (scanf("%d%d%d%d", &y1, &x1, &y2, &x2)) {
-		int initial_values[4];
-		initial_values[0] = y1;
-		initial_values[1] = x1;
-		initial_values[2] = y2;
-		initial_values[3] = x2;
+		//check if any photo was loaded
+		if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+			error_no_load();
+			return;
+		}
 
 		//check input order
 		if (x1 > x2)
 			swap_int(&x1, &x2);
 		if (y1 > y2)
 			swap_int(&y1, &y2);
+
+		int initial_values[4];
+		initial_values[0] = y1;
+		initial_values[1] = x1;
+		initial_values[2] = y2;
+		initial_values[3] = x2;
+
+		//check if selection zone exists
+		if (x1 == x2 || y1 == y2) {
+			error_select();
+			return;
+		}
 
 		//check if coords are inside the mat according to photo's type
 		if (y1 < 0 || y2 > ph->col || x1 < 0 || x2 > ph->lin) {
@@ -46,6 +52,12 @@ void select(photo_t *ph)
 		//read ALL in order to step over it
 		char all[ALL_LEN];
 		scanf("%s", all);
+
+	//check if any photo was loaded
+		if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+			error_no_load();
+			return;
+		}
 
 		//use extremes as selection coords
 		select_all(ph);

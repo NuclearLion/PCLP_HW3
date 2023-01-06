@@ -117,3 +117,11 @@ commit 22: 45/110
 	*fixed 2 invalid command error messages for only one command
 	*fixed BLUR and GAUSSIAN_BLUR result accuracy
 	*fixed reading GAUSSIAN_BL only
+
+commit 23: 85.5/110
+	*fixed no load error on SAVE
+	*fixed EXIT error and close the program
+	*fixed SLECT error to display when x1 == x2
+	*fixed invalid read size at APPLY
+	*fixed no_load error at SELECT
+	*fixed wrong display order at SELECT

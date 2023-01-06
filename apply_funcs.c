@@ -3,16 +3,14 @@
 
 void apply(photo_t *ph)
 {
-	if (!ph->photo_mat && !ph->rgb_mat.red) {
-		error_no_load();
-		char kernel_type[KERNEL_LENGTH];
-		fgets(kernel_type, KERNEL_LENGTH, stdin);
-		return;
-	}
-	
 	char kernel_type[KERNEL_LENGTH];
 	fgets(kernel_type, KERNEL_LENGTH, stdin);
-	//scanf("%s", kernel_type);
+
+	//check if any image was loaded
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
+		error_no_load();
+		return;
+	}
 
 	if (strcmp(kernel_type, "\n") == 0)
 	{
@@ -26,16 +24,14 @@ void apply(photo_t *ph)
 	
 	kernel_type[strlen(kernel_type) - 2] = '\0';
 
-	// if (!ph->photo_mat && !ph->rgb_mat.red) {
-	// 	error_no_load();
-	// 	return;
-	// }
-
+	//check if loaded photo is color
 	if (!is_color(ph->type)) {
 		error_charlie();
 		return;
 	}
 	//printf("kernel type: %s\n", kernel_type);
+
+	//check which APPLY effect was loaded
 	switch (hash_apply(kernel_type)) {
 	case 0:
 		edge(ph);
@@ -164,7 +160,7 @@ void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
 			color_ch[i][j] = effect[ef_i][ef_j];
 			++ef_j;
-			if (ef_j > sel_col) {
+			if (ef_j >= sel_col) {
 				ef_j = 0;
 				++ef_i;
 			}
@@ -206,7 +202,7 @@ int **apply_kern(photo_t *ph, int **ch, int **ker, int lin, int col, int coef)
 			}
 
 			++res_j;
-			if (res_j > col) {
+			if (res_j >= col) {
 				res_j = 0;
 				++res_i;
 			}

@@ -16,9 +16,10 @@
 #define FILENAME_LEN 258
 #define TYPE_LEN 3
 #define ZERO 0
+#define FALSE 0
 
 //main call of LOAD command
-void load(photo_t *ph);
+void load(photo_t *ph, int *bool_load);
 
 //load values in photo matrix according to their magic number
 void p2_load(photo_t *ph, FILE *photo_f);

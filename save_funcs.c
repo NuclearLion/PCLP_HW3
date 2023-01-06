@@ -2,12 +2,6 @@
 
 void save(photo_t *ph)
 {
-	//check if any photo was loaded
-	if (!ph->photo_mat && !ph->rgb_mat.red) {
-		error_no_load();
-		return;
-	}
-
 	char name_ascii[NAME_AND_ASCII];
 	//init name with \0
 	memset(name_ascii, FALSE, sizeof(name_ascii));
@@ -16,6 +10,12 @@ void save(photo_t *ph)
 	//read parameters of SAVE as one, in order to count them later
 	fgets(name_ascii, NAME_AND_ASCII, stdin);
 	char *ptr = strtok(name_ascii, " ");
+
+	//check if any photo was loaded
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
+		error_no_load();
+		return;
+	}
 
 	//save the name of file which is the first parameter
 	char *new_name = ptr;

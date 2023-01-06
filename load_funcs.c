@@ -5,11 +5,29 @@
 //fscanf("%s") in order to step over the unnecesarry comments
 
 
-void load(photo_t *ph)
+void load(photo_t *ph, int *bool_load)
 {
 	//read the given filename
 	char name[FILENAME_LEN];
 	scanf("%s", name);
+
+	if (ph->rgb_mat.red != NULL) {
+		free_mat(ph->rgb_mat.red, ph->lin);
+		free_mat(ph->rgb_mat.green, ph->lin);
+		free_mat(ph->rgb_mat.blue, ph->lin);
+		ph->rgb_mat.red = NULL;
+		ph->rgb_mat.green = NULL;
+		ph->rgb_mat.blue = NULL;
+	}
+
+	if (ph->photo_mat != NULL) {
+		//free_mat(ph->photo_mat, ph->lin);
+		for (int i = 0; i < ph->lin; ++i)
+			free(ph->photo_mat[i]);
+		free(ph->photo_mat);
+
+		ph->photo_mat = NULL;
+	}
 
 	//try to open the file
 	FILE *photo_f = fopen(name, "rb");
@@ -25,14 +43,6 @@ void load(photo_t *ph)
 	//free_photo(ph);
 
 
-	if (ph->photo_mat != NULL) {
-		//free_mat(ph->photo_mat, ph->lin);
-		for (int i = 0; i < ph->lin; ++i)
-			free(ph->photo_mat[i]);
-		free(ph->photo_mat);
-
-		ph->photo_mat = NULL;
-	}
 
 
 	// 	free(ph);
@@ -44,14 +54,7 @@ void load(photo_t *ph)
 	// 	
 	// }
 
-	if (ph->rgb_mat.red != NULL) {
-		free_mat(ph->rgb_mat.red, ph->lin);
-		free_mat(ph->rgb_mat.green, ph->lin);
-		free_mat(ph->rgb_mat.blue, ph->lin);
-		ph->rgb_mat.red = NULL;
-		ph->rgb_mat.green = NULL;
-		ph->rgb_mat.blue = NULL;
-	}
+	
 
 	//printf("pointer of mat(0): %p\n", ph->photo_mat);
 
@@ -95,6 +98,7 @@ void load(photo_t *ph)
 
 	//print succes message in the end
 	succes_load(name);
+	*bool_load = FALSE;
 	//close the file
 	fclose(photo_f);
 }
