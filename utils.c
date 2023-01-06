@@ -89,3 +89,15 @@ int is_color(int type)
 		return 0;
 	return 1;
 }
+
+void free_photo(photo_t *ph)
+{
+	if (ph->photo_mat)
+		free(ph->photo_mat);
+	if (ph->rgb_mat.red) {
+		free(ph->rgb_mat.red);
+		free(ph->rgb_mat.green);
+		free(ph->rgb_mat.blue);
+	}
+	//free(ph);
+}

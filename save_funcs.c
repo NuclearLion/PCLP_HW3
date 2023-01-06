@@ -3,7 +3,7 @@
 void save(photo_t *ph)
 {
 	//check if any photo was loaded
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		error_no_load();
 		return;
 	}
@@ -53,15 +53,15 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 
 	//write the magic number acording to SAVE instruction
 	if (bool_ascii) {
-		if (ph->type == P2 || ph->type == P5)
-			print_type(photo_f, 2);
+		if (!is_color(ph->type))
+			print_type(photo_f, P2);
 		else 
-			print_type(photo_f, 3);
+			print_type(photo_f, P3);
 	} else {
-		if (ph->type == P2 || ph->type == P5)
-			print_type(photo_f, 5);
+		if (!is_color(ph->type))
+			print_type(photo_f, P5);
 		else 
-			print_type(photo_f, 6);
+			print_type(photo_f, P6);
 	}
 
 	fprintf(photo_f, "%d %d\n", ph->col, ph->lin);
@@ -71,7 +71,7 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 
 	//check if ascii parameter was read and write in file according to it
 	if (bool_ascii)
-		if (ph->type == P2 || ph->type == P5)
+		if (!is_color(ph->type))
 			for (int i = 0; i < ph->lin; ++i) {
 				for (int j = 0; j < ph->col; ++j)
 					fprintf(photo_f, "%d ", ph->photo_mat[i][j]);
@@ -87,7 +87,7 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 				fprintf(photo_f, "\n");
 			}
 	else
-		if (ph->type == P2 || ph->type == P5)
+		if (!is_color(ph->type))
 			for (int i = 0; i < ph->lin; ++i)
 				for (int j = 0; j < ph->col; ++j)
 					fwrite(&ph->photo_mat[i][j], 1, 1, photo_f);

@@ -20,6 +20,37 @@ void load(photo_t *ph)
 		return;
 	}
 
+	//if any mat was loaded before, gracefully free it
+	//if (ph->photo_mat != NULL || ph->rgb_mat.red != NULL)
+	//free_photo(ph);
+	if (ph->photo_mat != NULL) {
+		//free_mat(ph->photo_mat, ph->lin);
+		for (int i = 0; i < ph->lin; ++i)
+			free(ph->photo_mat[i]);
+		free(ph->photo_mat);
+
+		ph->photo_mat = NULL;
+	}
+	// 	free(ph);
+	// 	// ph->photo_mat = NULL;
+
+	// 	// for (int i = 0; i < ph->lin; ++i)
+	// 	// 	free(ph->photo_mat[i]);
+	// 	// free(ph->photo_mat);
+	// 	
+	// }
+
+	if (ph->rgb_mat.red != NULL) {
+		free_mat(ph->rgb_mat.red, ph->lin);
+		free_mat(ph->rgb_mat.green, ph->lin);
+		free_mat(ph->rgb_mat.blue, ph->lin);
+		ph->rgb_mat.red = NULL;
+		ph->rgb_mat.green = NULL;
+		ph->rgb_mat.blue = NULL;
+	}
+
+	//printf("pointer of mat(0): %p\n", ph->photo_mat);
+
 	//read the magic number
 	char type[TYPE_LEN];
 	memset(type, ZERO, sizeof(type));

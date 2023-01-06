@@ -101,3 +101,9 @@ commit 18: ROTATE for SELECT ALL working
 
 commit 19: Fixed ROTATE
 	*fixed bug with rotate not working on selections inside the photo
+
+commit 20: unconditional jump at save
+	*started debugging tests from checker
+	*start grade = 16.6666/90 + 10 README = 26.6666
+	*added freeing matrix before loading a new one
+	*detected bug with uncoditional jump at save

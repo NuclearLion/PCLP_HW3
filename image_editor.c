@@ -11,7 +11,7 @@
 
 #define COMMAND_LENGTH 12
 
-int main(void) 
+int main(void)
 {
 	//declare the main memory where the photo and it's atributes are loaded
 	photo_t loaded_ph;
@@ -20,6 +20,13 @@ int main(void)
 	loaded_ph.rgb_mat.red = NULL;
 	loaded_ph.rgb_mat.green = NULL;
 	loaded_ph.rgb_mat.blue = NULL;
+	loaded_ph.lin = 0;
+	loaded_ph.col = 0;
+	loaded_ph.bot_x = 0;
+	loaded_ph.bot_y = 0;
+	loaded_ph.top_x = 0;
+	loaded_ph.top_y = 0;
+	loaded_ph.type = 0;
 
 	char command[COMMAND_LENGTH];
 	scanf("%s", command);

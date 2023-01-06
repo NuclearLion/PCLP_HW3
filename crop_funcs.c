@@ -9,12 +9,8 @@ void crop(photo_t *ph)
 
 	int new_lin = ph->bot_x - ph->top_x + 1;
 	int new_col = ph->bot_y - ph->top_y + 1;
-	
-	//facem o functie care stie sa dea crop exact ca cea de bw
-	//si daca p2 p5 o apelam o singura data si returnam ca rezultat la ph.mat
-	//daca p3 p6 apelam de 3 ori si returnam 3 rezultate pt rgb
 
-	//free the old mat and point to the new one
+	//free the old mat(s) and point to the new one(s)
 	if (!is_color(ph->type)) {
 		int **aux_mat = crop_mat(ph->photo_mat, ph, new_lin, new_col);
 		free_mat(ph->photo_mat, ph->lin);
@@ -31,16 +27,15 @@ void crop(photo_t *ph)
 		ph->rgb_mat.blue = aux_b;
 	}
 
+	//save the new number of lines and columns
 	ph->lin = new_lin;
 	ph->col = new_col;
 
 	//init coords as if the whole picture is selected
 	select_all(ph);
-
 	succes_crop();
 }
 
-//int s_x, int f_x, int s_y, int f_y
 int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col)
 {
 	int **cropped = alloc_matrix(new_lin, new_col);
@@ -57,6 +52,5 @@ int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col)
 			}
 		}
 	}
-
 	return cropped;
 }

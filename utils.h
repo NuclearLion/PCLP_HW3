@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "photo_type.h"
 
@@ -30,5 +31,7 @@ int clamp_i(int pixel);
 int hash_apply(char *ker);
 
 int is_color(int type);
+
+void free_photo(photo_t *ph);
 
 #endif
