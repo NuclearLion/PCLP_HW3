@@ -2,13 +2,31 @@
 
 void histogram(photo_t *ph)
 {
-	int stars, bins;
-	scanf("%d%d", &stars, &bins);
-
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		error_no_load();
 		return;
 	}
+
+	int stars, bins;
+	int res_scan = scanf("%d%d", &stars, &bins);
+	if (res_scan != 2) {
+		error_invalid();
+		return;
+	}
+	//check if there are more than 2 parameters
+	if (res_scan == 2) {
+		char trash[10];
+		fgets(trash, 10, stdin);
+		if (strcmp(trash, "\n") != 0) {
+			error_invalid();
+			return;
+		}
+	}
+	// int trash;
+	// if (scanf("%d", trash)) {
+	// 	error_invalid();
+	// 	return;
+	// }
 
 	if (is_color(ph->type)) {
 		error_balck_white();

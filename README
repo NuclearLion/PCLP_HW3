@@ -125,3 +125,6 @@ commit 23: 85.5/110
 	*fixed invalid read size at APPLY
 	*fixed no_load error at SELECT
 	*fixed wrong display order at SELECT
+
+commit 24: 93/110
+	*fixed SELECT wrong parameters
