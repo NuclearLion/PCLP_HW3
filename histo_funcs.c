@@ -4,6 +4,7 @@ void histogram(photo_t *ph)
 {
 	if (!ph->photo_mat && !ph->rgb_mat.red) {
 		error_no_load();
+		trash_invalid();
 		return;
 	}
 
@@ -13,6 +14,7 @@ void histogram(photo_t *ph)
 		error_invalid();
 		return;
 	}
+
 	//check if there are more than 2 parameters
 	if (res_scan == 2) {
 		char trash[10];
@@ -22,11 +24,6 @@ void histogram(photo_t *ph)
 			return;
 		}
 	}
-	// int trash;
-	// if (scanf("%d", trash)) {
-	// 	error_invalid();
-	// 	return;
-	// }
 
 	if (is_color(ph->type)) {
 		error_balck_white();

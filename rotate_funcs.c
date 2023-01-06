@@ -125,12 +125,6 @@ int **rotate_right(photo_t *ph, int **mat, int lin, int col)
 				--new_j;
 			}
 		}
-	// for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-	// 	for (int j = ph->top_y; j <= ph->bot_y; ++j)
-	// 		printf("%d ", mat[i][j]);
-	// 	printf("\n");
-	// }
-	
 	
 	return rotated;
 }

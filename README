@@ -128,3 +128,7 @@ commit 23: 85.5/110
 
 commit 24: 93/110
 	*fixed SELECT wrong parameters
+
+commit 25: 95/110
+	*fixed HISTOGRAM wrong parameters
+	*cleaned some comments
