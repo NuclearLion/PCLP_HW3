@@ -124,8 +124,8 @@ void gaussian_blur(photo_t *ph)
 void kern(int kernel[][3], int **color_ch, photo_t *ph, int coef)
 {
 	//calculate nr of lines and cols inside the selection
-	int sel_lin = ph->bot_x - ph->top_x + 1;
-	int sel_col = ph->bot_y - ph->top_y + 1;
+	int sel_lin = ph->bot.x - ph->top.x + 1;
+	int sel_col = ph->bot.y - ph->top.y + 1;
 
 	//alloc new mat
 	//call func to create new mat by maths
@@ -134,8 +134,8 @@ void kern(int kernel[][3], int **color_ch, photo_t *ph, int coef)
 	//overwrite ph
 	int ef_i = 0;
 	int ef_j = 0;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i)
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i)
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			color_ch[i][j] = effect[ef_i][ef_j];
 
 			//step to the next cell
@@ -159,8 +159,8 @@ int **apply_kern(photo_t *ph, int **ch, int ker[][3],
 
 	int res_i = 0;
 	int res_j = 0;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i) {
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			int pix_sum = 0;
 
 			//if the current pixel has neighbors

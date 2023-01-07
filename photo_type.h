@@ -9,10 +9,16 @@ typedef struct {
 	int **blue;
 } rgb_t;
 
+//struct to define a point in a 2D plan
+typedef struct {
+	int x, y;
+} coords_point_t;
+
+//struct to define a photo and it's characteristics
 typedef struct {
 	//coordinates of selection
-	int top_x, top_y;
-	int bot_x, bot_y;
+	coords_point_t top;
+	coords_point_t bot;
 
 	//number of columns and lines
 	int col, lin;

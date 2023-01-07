@@ -21,8 +21,8 @@ void rotate(photo_t *ph)
 	int rot_cnt = angle / 90;
 
 	//if its selected the whole photo rotate it even if it's not square
-	if (ph->top_x == 0 && ph->top_y == 0 &&
-		ph->bot_x + 1 == ph->lin && ph->bot_y + 1 == ph->col) {
+	if (ph->top.x == 0 && ph->top.y == 0 &&
+		ph->bot.x + 1 == ph->lin && ph->bot.y + 1 == ph->col) {
 		// if the angle is positive
 		if (angle > 0) {
 			//rotate to right the image 90 degrees for rot_cnt times
@@ -53,8 +53,8 @@ void rotate(photo_t *ph)
 	}
 
 	//new dimensions of the selected area inside the photo
-	int sel_lin = ph->bot_x - ph->top_x + 1;
-	int sel_col = ph->bot_y - ph->top_y + 1;
+	int sel_lin = ph->bot.x - ph->top.x + 1;
+	int sel_col = ph->bot.y - ph->top.y + 1;
 	//check if the selection is square
 	if (sel_lin != sel_col) {
 		error_square_sel();
@@ -101,8 +101,8 @@ void overwrite_rotate(photo_t *ph, int **mat, int side, int dir)
 	//with the values inside the new one
 	int new_i = 0;
 	int new_j = 0;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i)
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i)
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			mat[i][j] = rotated[new_i][new_j];
 			++new_j;
 			if (new_j >= side) {
@@ -124,8 +124,8 @@ int **rotate_right(photo_t *ph, int **mat, int side)
 	//and go down - left with filling it
 	int new_i = 0;
 	int new_j = side - 1;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i)
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i)
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			rotated[new_i][new_j] = mat[i][j];
 			++new_i;
 			if (new_i >= side) {
@@ -146,8 +146,8 @@ int **rotate_left(photo_t *ph, int **mat, int side)
 	//and go up - right with filling it
 	int new_i = side - 1;
 	int new_j = 0;
-	for (int i = ph->top_x; i <= ph->bot_x; ++i)
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i)
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			rotated[new_i][new_j] = mat[i][j];
 			--new_i;
 			if (new_i < 0) {
@@ -175,7 +175,7 @@ void rotate_all(photo_t *ph, int ***mat, int dir, int ch)
 	//the last color channel to be rotated)
 	if (ch == 1) {
 		swap_int(&ph->lin, &ph->col);
-		swap_int(&ph->bot_x, &ph->bot_y);
+		swap_int(&ph->bot.x, &ph->bot.y);
 	}
 }
 

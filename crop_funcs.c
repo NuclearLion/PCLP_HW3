@@ -11,8 +11,8 @@ void crop(photo_t *ph)
 	}
 
 	//save the new smaller photo's nr of columns and lines
-	int new_lin = ph->bot_x - ph->top_x + 1;
-	int new_col = ph->bot_y - ph->top_y + 1;
+	int new_lin = ph->bot.x - ph->top.x + 1;
+	int new_col = ph->bot.y - ph->top.y + 1;
 
 	//free the old mat(s) and point to the new one(s)
 	if (!is_color(ph->type)) {
@@ -54,8 +54,8 @@ int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col)
 	int new_j = 0;
 
 	// write values from the old photo
-	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
-		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
+	for (int i = ph->top.x; i <= ph->bot.x; ++i) {
+		for (int j = ph->top.y; j <= ph->bot.y; ++j) {
 			cropped[new_i][new_j] = mat[i][j];
 
 			//step to the next matrix

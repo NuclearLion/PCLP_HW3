@@ -34,10 +34,10 @@ void select(photo_t *ph)
 		}
 
 		//save the final values of selection
-		ph->top_x = y1;
-		ph->top_y = x1;
-		ph->bot_x = y2 - 1;
-		ph->bot_y = x2 - 1;
+		ph->top.x = y1;
+		ph->top.y = x1;
+		ph->bot.x = y2 - 1;
+		ph->bot.y = x2 - 1;
 
 		succes_select(x1, y1, x2, y2);
 	} else {
@@ -77,8 +77,8 @@ void select(photo_t *ph)
 //set coords as full photo is selected
 void select_all(photo_t *ph)
 {
-	ph->top_x = 0;
-	ph->top_y = 0;
-	ph->bot_x = ph->lin - 1;
-	ph->bot_y = ph->col - 1;
+	ph->top.x = 0;
+	ph->top.y = 0;
+	ph->bot.x = ph->lin - 1;
+	ph->bot.y = ph->col - 1;
 }

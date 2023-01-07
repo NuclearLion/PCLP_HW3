@@ -119,10 +119,10 @@ void init_photo(photo_t *loaded_ph)
 	loaded_ph->rgb_mat.blue = NULL;
 	loaded_ph->lin = 0;
 	loaded_ph->col = 0;
-	loaded_ph->bot_x = 0;
-	loaded_ph->bot_y = 0;
-	loaded_ph->top_x = 0;
-	loaded_ph->top_y = 0;
+	loaded_ph->bot.x = 0;
+	loaded_ph->bot.y = 0;
+	loaded_ph->top.x = 0;
+	loaded_ph->top.y = 0;
 	loaded_ph->type = 0;
 }
 

@@ -22,8 +22,8 @@ void histogram(photo_t *ph)
 
 	//check if there are more than 2 parameters
 	if (res_scan == 2) {
-		char trash[10];
-		fgets(trash, 10, stdin);
+		char trash[TRASH_LEN];
+		fgets(trash, TRASH_LEN, stdin);
 		if (strcmp(trash, "\n") != 0) {
 			error_invalid();
 			return;
