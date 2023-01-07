@@ -9,6 +9,7 @@
 #include "matrix_op.h"
 #include "utils.h"
 
+//main call for EXIT command
 void exit_editor(photo_t *ph);
 
 #endif

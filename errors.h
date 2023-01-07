@@ -4,6 +4,9 @@
 
 #include <stdio.h>
 
+//this file includes the functions which display
+//all the errors regarding to user input
+
 void error_load(char *file_name);
 
 void error_no_load(void);

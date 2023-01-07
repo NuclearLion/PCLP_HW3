@@ -8,8 +8,11 @@
 #include "matrix_op.h"
 #include "select_funcs.h"
 
+//main call of crop command
 void crop(photo_t *ph);
 
+//alloc a new memory area and fill it with values inside
+//the selection from the old matrix
 int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col);
 
 #endif

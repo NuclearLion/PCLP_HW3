@@ -4,6 +4,7 @@
 //todo read photos with if (fscanf("%d")) in order to read only ints and use
 //fscanf("%s") in order to step over the unnecesarry comments
 
+//main call of LOAD command
 void load(photo_t *ph)
 {
 	//read the given filename
@@ -30,9 +31,9 @@ void load(photo_t *ph)
 
 	//try to open the file
 	//checker forced me into doing this horrible star placement, sorry
-	FILE * photo_f = fopen(name, "rb");
+	FILE * photo_file = fopen(name, "rb");
 	//check if the file could be opened
-	if (!photo_f) {
+	if (!photo_file) {
 		//print the error if it couldn't
 		error_load(name);
 		return;
@@ -41,31 +42,32 @@ void load(photo_t *ph)
 	//read the magic number
 	char type[TYPE_LEN];
 	memset(type, ZERO, sizeof(type));
-	fscanf(photo_f, "%s", type);
+	fscanf(photo_file, "%s", type);
+
 	//save the magic number as a hashed type (in order to keep it as int)
 	ph->type = hash_type(type);
 
 	//read and save dimensions of photo
-	fscanf(photo_f, "%d%d", &ph->col, &ph->lin);
+	fscanf(photo_file, "%d%d", &ph->col, &ph->lin);
 
 	//step over the 255 value when reading
 	int _255;
-	fscanf(photo_f, "%d", &_255);
+	fscanf(photo_file, "%d", &_255);
 	//after this the coursor pointer stays at the end of 255
 
 	//acording to the magic number, load the photo as a matrix
 	switch (ph->type) {
 	case 2:
-		p2_load(ph, photo_f);
+		p2_load(ph, photo_file);
 		break;
 	case 3:
-		p3_load(ph, photo_f);
+		p3_load(ph, photo_file);
 		break;
 	case 5:
-		p5_load(ph, photo_f);
+		p5_load(ph, photo_file);
 		break;
 	case 6:
-		p6_load(ph, photo_f);
+		p6_load(ph, photo_file);
 		break;
 	default:
 		break;
@@ -78,7 +80,7 @@ void load(photo_t *ph)
 	//print succes message in the end
 	succes_load(name);
 	//close the file
-	fclose(photo_f);
+	fclose(photo_file);
 }
 
 void p2_load(photo_t *ph, FILE *photo_f)

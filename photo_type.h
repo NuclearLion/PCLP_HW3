@@ -2,6 +2,7 @@
 #ifndef _PHOTO_TYPE_H_
 #define _PHOTO_TYPE_H_
 
+//struct to define 3 more matrixes, each for a color channel in a RGB photo
 typedef struct {
 	int **red;
 	int **green;

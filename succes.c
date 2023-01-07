@@ -26,12 +26,9 @@ void succes_crop(void)
 	printf("Image cropped\n");
 }
 
-void succes_select(int *coords)
+void succes_select(int x1, int y1, int x2, int y2)
 {
-	printf("Selected ");
-	for (int i = 0; i < 4; ++i)
-		printf("%d ", coords[i]);
-	printf("\n");
+	printf("Selected %d %d %d %d\n", x1, y1, x2, y2);
 }
 
 void succes_apply(char *parameter)

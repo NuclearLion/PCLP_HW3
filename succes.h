@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-//print succes messages when commands were executed successfully
+//functions that print succes messages when commands were executed successfully
 
 void succes_load(char *name_f);
 
@@ -16,7 +16,7 @@ void succes_equalize(void);
 
 void succes_crop(void);
 
-void succes_select(int *coords);
+void succes_select(int x1, int y1, int x2, int y2);
 
 void succes_apply(char *parameter);
 

@@ -10,7 +10,6 @@
 #include "succes.h"
 #include "utils.h"
 
-#define ARGS_LEN 25
 #define ALL_LEN 6
 
 //main call for SELECT command

@@ -24,9 +24,4 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii);
 //unhash type in order to save the file
 void print_type(FILE *print_f, int type);
 
-//because P3 and P6 actually have a matrix with dimension of 3 * no_cols,
-//have to treat separately the cases where the no_cols in matrix is real
-//and when it has to be /3
-void print_dim(FILE *print_f, photo_t *ph);
-
 #endif

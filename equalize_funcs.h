@@ -12,10 +12,12 @@
 
 #define VALS 256
 #define ZERO 0
-#define MAX_VAL 255
+#define MAX_VAL 255.0
 
+//main call of equalize function
 void equalize(photo_t *ph);
 
+//calculate the unrounded value of the new pixel
 int eq_pixel(int pixel, long long area, int *pixel_frq);
 
 #endif

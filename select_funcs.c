@@ -1,16 +1,16 @@
 // Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "select_funcs.h"
 
+//main call for SELECT command
 void select(photo_t *ph)
 {
 	//it can be select or select all
 	int y1, x1, y2, x2;
 
-	//BIG TODO
-	//wtf is this creationism
+	//read and check if exactly 4 ints were readen
 	if (scanf("%d%d%d%d", &x1, &y1, &x2, &y2) == 4) {
 		//check if any photo was loaded
-		if (!ph->photo_mat && !ph->rgb_mat.red) {
+		if (check_load(ph)) {
 			error_no_load();
 			return;
 		}
@@ -20,12 +20,6 @@ void select(photo_t *ph)
 			swap_int(&y1, &y2);
 		if (x1 > x2)
 			swap_int(&x1, &x2);
-
-		int initial_values[4];
-		initial_values[0] = x1;
-		initial_values[1] = y1;
-		initial_values[2] = x2;
-		initial_values[3] = y2;
 
 		//check if selection zone exists
 		if (y1 == y2 || x1 == x2) {
@@ -45,12 +39,13 @@ void select(photo_t *ph)
 		ph->bot_x = y2 - 1;
 		ph->bot_y = x2 - 1;
 
-		succes_select(initial_values);
+		succes_select(x1, y1, x2, y2);
 	} else {
 		//check if ALL was inputed or it's an invalid command
 		char all[ALL_LEN];
 		fgets(all, ALL_LEN, stdin);
 
+		//remove spaces from the string and try to make the string be "ALL"
 		int no_space_cnt = 0;
 		for (int i = 0; all[i] != '\0'; ++i) {
 			if (all[i] != ' ')
@@ -58,11 +53,11 @@ void select(photo_t *ph)
 		}
 		all[no_space_cnt] = '\0';
 
-		//in case SELECT ALL was inputed
-		//read ALL in order to step over it
+		//in case SELECT ALL was probably inputed
+		//read ALL (probably) in order to step over it
 		if (strcmp(all, "ALL\n") == 0) {
 			//check if any photo was loaded
-			if (!ph->photo_mat && !ph->rgb_mat.red) {
+			if (check_load(ph)) {
 				error_no_load();
 				return;
 			}
@@ -71,6 +66,7 @@ void select(photo_t *ph)
 			select_all(ph);
 			succes_select_all();
 		} else {
+			//in case some garbage text was inputed in place of ALL
 			getchar();
 			error_invalid();
 			return;
@@ -78,6 +74,7 @@ void select(photo_t *ph)
 	}
 }
 
+//set coords as full photo is selected
 void select_all(photo_t *ph)
 {
 	ph->top_x = 0;

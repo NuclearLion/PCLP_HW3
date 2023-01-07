@@ -140,3 +140,10 @@ commit 26: 100/110
 commit 27: 110/110 Coding Style
 	*Coding Style compliant
 	*added Copyright on every file
+
+commit 28: beauty refactor and comments
+	*TODO write README lol
+	*refactored function structures
+	*created function for some duplicated code
+	*cleaner declaration of matrix
+	*heavily commented code

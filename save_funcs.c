@@ -1,6 +1,7 @@
 // Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "save_funcs.h"
 
+//main call of SAVE command
 void save(photo_t *ph)
 {
 	char name_ascii[NAME_AND_ASCII];
@@ -43,6 +44,7 @@ void save(photo_t *ph)
 	succes_save(new_name);
 }
 
+//creating the new file and writing in it
 void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 {
 	//create new file for the new photo
@@ -105,6 +107,7 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 	fclose(photo_f);
 }
 
+//unhash type in order to save the file
 void print_type(FILE *print_f, int type)
 {
 	switch (type) {

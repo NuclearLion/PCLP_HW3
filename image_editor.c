@@ -65,6 +65,3 @@ int main(void)
 	exit_editor(&loaded_ph);
 	return 0;
 }
-
-// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
-//check_load(ph)

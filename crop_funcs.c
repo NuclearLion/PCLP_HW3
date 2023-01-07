@@ -1,13 +1,16 @@
 // Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "crop_funcs.h"
 
+//main call of crop command
 void crop(photo_t *ph)
 {
+	//check if any photo is loaded
 	if (check_load(ph)) {
 		error_no_load();
 		return;
 	}
 
+	//save the new smaller photo's nr of columns and lines
 	int new_lin = ph->bot_x - ph->top_x + 1;
 	int new_col = ph->bot_y - ph->top_y + 1;
 
@@ -20,9 +23,11 @@ void crop(photo_t *ph)
 		int **aux_r = crop_mat(ph->rgb_mat.red, ph, new_lin, new_col);
 		int **aux_g = crop_mat(ph->rgb_mat.green, ph, new_lin, new_col);
 		int **aux_b = crop_mat(ph->rgb_mat.blue, ph, new_lin, new_col);
+
 		free_mat(ph->rgb_mat.red, ph->lin);
 		free_mat(ph->rgb_mat.green, ph->lin);
 		free_mat(ph->rgb_mat.blue, ph->lin);
+
 		ph->rgb_mat.red = aux_r;
 		ph->rgb_mat.green = aux_g;
 		ph->rgb_mat.blue = aux_b;
@@ -37,15 +42,23 @@ void crop(photo_t *ph)
 	succes_crop();
 }
 
+//alloc a new memory area and fill it with values inside
+//the selection from the old matrix
 int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col)
 {
+	// alloc a new memory area
 	int **cropped = alloc_matrix(new_lin, new_col);
+
+	// init the new coordinates
 	int new_i = 0;
 	int new_j = 0;
 
+	// write values from the old photo
 	for (int i = ph->top_x; i <= ph->bot_x; ++i) {
 		for (int j = ph->top_y; j <= ph->bot_y; ++j) {
 			cropped[new_i][new_j] = mat[i][j];
+
+			//step to the next matrix
 			++new_j;
 			if (new_j >= new_col) {
 				new_j = 0;

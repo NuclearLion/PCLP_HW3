@@ -13,20 +13,26 @@
 #define POS 1
 #define NEG -1
 
+//main call for ROTATE command
 void rotate(photo_t *ph);
 
-void rotate_sel(int direction);
+//overwrite the old matrix with the rotated one
+void overwrite_rotate(photo_t *ph, int **mat, int side, int dir);
 
-void overwrite_rotate(photo_t *ph, int **mat, int lin, int col, int dir);
+//create a new square matrix with values from
+//the selection in the old one, but rotated to right
+int **rotate_right(photo_t *ph, int **mat, int side);
 
-int **rotate_right(photo_t *ph, int **mat, int lin, int col);
-
-int **rotate_left(photo_t *ph, int **mat, int lin, int col);
+//create a new square matrix with values from
+//the selection in the old one, but rotated to left
+int **rotate_left(photo_t *ph, int **mat, int side);
 
 void rotate_all(photo_t *ph, int ***mat, int dir, int ch);
 
+//alloc and fill a new rotated to right mat
 int **rot_all_r(photo_t *ph, int **mat, int lin, int col);
 
+//alloc and fill a new rotated to left mat
 int **rot_all_l(photo_t *ph, int **mat, int lin, int col);
 
 #endif
