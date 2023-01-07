@@ -8,7 +8,7 @@
 
 #include "photo_type.h"
 
-#define TRASH_LEN 100
+#define TRASH_LEN 300
 #define P2 2
 #define P3 3
 #define P5 5

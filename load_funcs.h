@@ -12,7 +12,6 @@
 #include "succes.h"
 #include "select_funcs.h"
 
-#define COL_COLOR 3
 #define FILENAME_LEN 258
 #define TYPE_LEN 3
 #define ZERO 0

@@ -1,9 +1,6 @@
 // Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "load_funcs.h"
 
-//todo read photos with if (fscanf("%d")) in order to read only ints and use
-//fscanf("%s") in order to step over the unnecesarry comments
-
 //main call of LOAD command
 void load(photo_t *ph)
 {
@@ -11,6 +8,7 @@ void load(photo_t *ph)
 	char name[FILENAME_LEN];
 	scanf("%s", name);
 
+	//check if any mat was loaded before (RGB or Black and White)
 	if (ph->rgb_mat.red) {
 		free_mat(ph->rgb_mat.red, ph->lin);
 		free_mat(ph->rgb_mat.green, ph->lin);
@@ -22,9 +20,7 @@ void load(photo_t *ph)
 	}
 
 	if (ph->photo_mat) {
-		for (int i = 0; i < ph->lin; ++i)
-			free(ph->photo_mat[i]);
-		free(ph->photo_mat);
+		free_mat(ph->photo_mat, ph->lin);
 
 		ph->photo_mat = NULL;
 	}
@@ -32,9 +28,8 @@ void load(photo_t *ph)
 	//try to open the file
 	//checker forced me into doing this horrible star placement, sorry
 	FILE * photo_file = fopen(name, "rb");
-	//check if the file could be opened
 	if (!photo_file) {
-		//print the error if it couldn't
+		// check if the file could be opened print the error if it couldn't
 		error_load(name);
 		return;
 	}
@@ -48,12 +43,19 @@ void load(photo_t *ph)
 	ph->type = hash_type(type);
 
 	//read and save dimensions of photo
-	fscanf(photo_file, "%d%d", &ph->col, &ph->lin);
+	//read only (%d) ints in order to step over the comments
+	while (fscanf(photo_file, "%d%d", &ph->col, &ph->lin) != 2) {
+		char trash[TRASH_LEN];
+		fscanf(photo_file, "%s", trash);
+	}
 
-	//step over the 255 value when reading
+	//step over the 255 value when reading, already know max value is 255
+	//read only (%d) ints in order to step over the comments
 	int _255;
-	fscanf(photo_file, "%d", &_255);
-	//after this the coursor pointer stays at the end of 255
+	while (fscanf(photo_file, "%d", &_255) != 1) {
+		char trash[TRASH_LEN];
+		fscanf(photo_file, "%s", trash);
+	} //after this the coursor pointer stays at the end of 255
 
 	//acording to the magic number, load the photo as a matrix
 	switch (ph->type) {

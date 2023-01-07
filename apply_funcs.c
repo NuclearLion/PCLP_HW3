@@ -152,7 +152,7 @@ void kern(int kernel[][3], int **color_ch, photo_t *ph, int coef)
 
 //alloc new memory and apply the kernel over the selected zone
 //in order to return as a matrix
-int **apply_kern(photo_t *ph, int **ch, int ker[][3], 
+int **apply_kern(photo_t *ph, int **ch, int ker[][3],
 				 int lin, int col, int coef)
 {
 	int **result = alloc_matrix(lin, col);

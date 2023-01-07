@@ -147,3 +147,7 @@ commit 28: beauty refactor and comments
 	*created function for some duplicated code
 	*cleaner declaration of matrix
 	*heavily commented code
+
+commit 29: step over comments
+	*can step over comments at load
+	*minor Coding Style fixes

@@ -1,14 +1,3 @@
-HISTOGRAM
-LOAD dummy
-HISTOGRAM
-HISTOGRAM 100 69
-SAVE dummy
-HISTOGRAM
-LOAD input/s.ppm
-HISTOGRAM
-HISTOGRAM 64 32
-LOAD input/s.pgm
-HISTOGRAM 64
-HISTOGRAM 64 32 16
-HISTOGRAM
+LOAD Photos/p2_comments.pgm
+SAVE Photos/save_com.pgm ascii
 EXIT

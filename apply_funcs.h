@@ -21,10 +21,9 @@ void apply(photo_t *ph);
 //with the effect applied
 void kern(int kernel[][3], int **color_ch, photo_t *ph, int coef);
 
-
 //apply the kernel matrix over the selection from a photo in
 //a new matrix and return it
-int **apply_kern(photo_t *ph, int **ch, int ker[][3], 
+int **apply_kern(photo_t *ph, int **ch, int ker[][3],
 				 int lin, int col, int coef);
 
 //the 4 following create necesary matrix and coefficients
