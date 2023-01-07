@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "succes.h"
 
 void succes_load(char *name_f)

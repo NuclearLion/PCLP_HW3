@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "apply_funcs.h"
 
 void apply(photo_t *ph)
@@ -7,13 +7,12 @@ void apply(photo_t *ph)
 	fgets(kernel_type, KERNEL_LENGTH, stdin);
 
 	//check if any image was loaded
-	if (!ph->photo_mat && !ph->rgb_mat.red) {
+	if (check_load(ph)) {
 		error_no_load();
 		return;
 	}
 
-	if (strcmp(kernel_type, "\n") == 0)
-	{
+	if (strcmp(kernel_type, "\n") == 0) {
 		error_invalid();
 		return;
 	}
@@ -21,7 +20,6 @@ void apply(photo_t *ph)
 	//remove the space from before and \n at the end
 	for (int i = 1; kernel_type[i]; ++i)
 		kernel_type[i - 1] = kernel_type[i];
-	
 	kernel_type[strlen(kernel_type) - 2] = '\0';
 
 	//check if loaded photo is color
@@ -29,7 +27,6 @@ void apply(photo_t *ph)
 		error_charlie();
 		return;
 	}
-	//printf("kernel type: %s\n", kernel_type);
 
 	//check which APPLY effect was loaded
 	switch (hash_apply(kernel_type)) {
@@ -46,6 +43,7 @@ void apply(photo_t *ph)
 		gaussian_blur(ph);
 		break;
 	default:
+		//in case the parameter is incorect
 		error_apply_parameter();
 		return;
 	}
@@ -123,6 +121,7 @@ void gaussian_blur(photo_t *ph)
 {
 	int divide_coef = 16;
 
+	//TODO a nicer declaration
 	int **gaussian_blur_k = alloc_matrix(KER_MAT_DIM, KER_MAT_DIM);
 	gaussian_blur_k[0][0] = 1;
 	gaussian_blur_k[0][1] = 2;
@@ -141,7 +140,7 @@ void gaussian_blur(photo_t *ph)
 	free_mat(gaussian_blur_k, KER_MAT_DIM);
 }
 
-//overwrites the main photo with the result of appling kernel 
+//overwrites the main photo with the result of appling kernel
 //over every color channel
 void kern(int **kernel, int **color_ch, photo_t *ph, int coef)
 {

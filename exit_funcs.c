@@ -1,13 +1,15 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "exit_funcs.h"
 
 void exit_editor(photo_t *ph)
 {
 	//check if any kind of photo was loaded
-	if (!ph->photo_mat && !ph->rgb_mat.red) {
+	if (check_load(ph)) {
 		//if not, print error and contiune running the program
 		error_no_load();
 	}
-	//else graciously free used memory and exit the program 
+
+	//else graciously free used memory and exit the program
 	//with suucces status
 	if (ph->photo_mat)
 		free_mat(ph->photo_mat, ph->lin);

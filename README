@@ -1,4 +1,5 @@
 DAN-DOMINIC STAICU 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 Homework 3 of PCLP1
 
 VERSION CONTROL
@@ -135,3 +136,7 @@ commit 25: 95/110
 
 commit 26: 100/110
 	*fixed ROTATE read error
+
+commit 27: 110/110 Coding Style
+	*Coding Style compliant
+	*added Copyright on every file

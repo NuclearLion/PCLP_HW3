@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _LOAD_FUNCS_H_
 #define _LOAD_FUNCS_H_
 
@@ -16,10 +16,9 @@
 #define FILENAME_LEN 258
 #define TYPE_LEN 3
 #define ZERO 0
-#define FALSE 0
 
 //main call of LOAD command
-void load(photo_t *ph, int *bool_load);
+void load(photo_t *ph);
 
 //load values in photo matrix according to their magic number
 void p2_load(photo_t *ph, FILE *photo_f);

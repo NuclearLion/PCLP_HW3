@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "save_funcs.h"
 
 void save(photo_t *ph)
@@ -12,7 +13,7 @@ void save(photo_t *ph)
 	char *ptr = strtok(name_ascii, " ");
 
 	//check if any photo was loaded
-	if (!ph->photo_mat && !ph->rgb_mat.red) {
+	if (check_load(ph)) {
 		error_no_load();
 		return;
 	}
@@ -23,7 +24,7 @@ void save(photo_t *ph)
 
 	//count how many parameters were read
 	int word_cnt = 0;
-	while (ptr != NULL) {
+	while (ptr) {
 		word_cnt++;
 		ptr = strtok(NULL, " ");
 	}
@@ -33,7 +34,7 @@ void save(photo_t *ph)
 		new_name[len_new_name - 1] = '\0';
 
 	//check if ascii parameter was read
-	if(word_cnt == 2)
+	if (word_cnt == 2)
 		save_f(ph, new_name, TRUE);
 	else
 		save_f(ph, new_name, FALSE);
@@ -55,12 +56,12 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 	if (bool_ascii) {
 		if (!is_color(ph->type))
 			print_type(photo_f, P2);
-		else 
+		else
 			print_type(photo_f, P3);
 	} else {
 		if (!is_color(ph->type))
 			print_type(photo_f, P5);
-		else 
+		else
 			print_type(photo_f, P6);
 	}
 
@@ -101,13 +102,12 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 			}
 
 	//close the saved file
-	fclose(photo_f);	
+	fclose(photo_f);
 }
 
 void print_type(FILE *print_f, int type)
 {
-	switch (type)
-	{
+	switch (type) {
 	case 2:
 		fprintf(print_f, "P2\n");
 		break;
@@ -125,10 +125,3 @@ void print_type(FILE *print_f, int type)
 		break;
 	}
 }
-
-/*
-
-
-
-
-*/

@@ -1,14 +1,14 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "select_funcs.h"
 
 void select(photo_t *ph)
 {
 	//it can be select or select all
-	int x1, y1, x2, y2;
+	int y1, x1, y2, x2;
 
 	//BIG TODO
-	//wtf is this this creationism
-	if (scanf("%d%d%d%d", &y1, &x1, &y2, &x2) == 4) {
-
+	//wtf is this creationism
+	if (scanf("%d%d%d%d", &x1, &y1, &x2, &y2) == 4) {
 		//check if any photo was loaded
 		if (!ph->photo_mat && !ph->rgb_mat.red) {
 			error_no_load();
@@ -16,34 +16,34 @@ void select(photo_t *ph)
 		}
 
 		//check input order
-		if (x1 > x2)
-			swap_int(&x1, &x2);
 		if (y1 > y2)
 			swap_int(&y1, &y2);
+		if (x1 > x2)
+			swap_int(&x1, &x2);
 
 		int initial_values[4];
-		initial_values[0] = y1;
-		initial_values[1] = x1;
-		initial_values[2] = y2;
-		initial_values[3] = x2;
+		initial_values[0] = x1;
+		initial_values[1] = y1;
+		initial_values[2] = x2;
+		initial_values[3] = y2;
 
 		//check if selection zone exists
-		if (x1 == x2 || y1 == y2) {
+		if (y1 == y2 || x1 == x2) {
 			error_select();
 			return;
 		}
 
 		//check if coords are inside the mat according to photo's type
-		if (y1 < 0 || y2 > ph->col || x1 < 0 || x2 > ph->lin) {
+		if (x1 < 0 || x2 > ph->col || y1 < 0 || y2 > ph->lin) {
 			error_select();
 			return;
 		}
 
 		//save the final values of selection
-		ph->top_x = x1;
-		ph->top_y = y1;
-		ph->bot_x = x2 - 1;
-		ph->bot_y = y2 - 1;
+		ph->top_x = y1;
+		ph->top_y = x1;
+		ph->bot_x = y2 - 1;
+		ph->bot_y = x2 - 1;
 
 		succes_select(initial_values);
 	} else {
@@ -62,7 +62,7 @@ void select(photo_t *ph)
 		//read ALL in order to step over it
 		if (strcmp(all, "ALL\n") == 0) {
 			//check if any photo was loaded
-			if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+			if (!ph->photo_mat && !ph->rgb_mat.red) {
 				error_no_load();
 				return;
 			}
@@ -75,7 +75,6 @@ void select(photo_t *ph)
 			error_invalid();
 			return;
 		}
-		
 	}
 }
 

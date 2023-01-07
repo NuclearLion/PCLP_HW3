@@ -1,4 +1,4 @@
-#Dan Dominic Staicu 311CA 2023
+#Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c99

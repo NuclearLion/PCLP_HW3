@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _UTILS_C_
 #define _UTILS_C_
 
@@ -33,8 +33,11 @@ int hash_apply(char *ker);
 
 int is_color(int type);
 
-void free_photo(photo_t *ph);
-
 void trash_invalid(void);
+
+int check_load(photo_t *ph);
+
+//init the matrix as NULL in order to check if anything was loaded
+void init_photo(photo_t *loaded_ph);
 
 #endif

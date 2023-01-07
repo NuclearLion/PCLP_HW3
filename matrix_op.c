@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "matrix_op.h"
 
 int **alloc_matrix(int n, int m)

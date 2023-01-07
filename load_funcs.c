@@ -1,27 +1,26 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "load_funcs.h"
 
 //todo read photos with if (fscanf("%d")) in order to read only ints and use
 //fscanf("%s") in order to step over the unnecesarry comments
 
-
-void load(photo_t *ph, int *bool_load)
+void load(photo_t *ph)
 {
 	//read the given filename
 	char name[FILENAME_LEN];
 	scanf("%s", name);
 
-	if (ph->rgb_mat.red != NULL) {
+	if (ph->rgb_mat.red) {
 		free_mat(ph->rgb_mat.red, ph->lin);
 		free_mat(ph->rgb_mat.green, ph->lin);
 		free_mat(ph->rgb_mat.blue, ph->lin);
+
 		ph->rgb_mat.red = NULL;
 		ph->rgb_mat.green = NULL;
 		ph->rgb_mat.blue = NULL;
 	}
 
-	if (ph->photo_mat != NULL) {
-		//free_mat(ph->photo_mat, ph->lin);
+	if (ph->photo_mat) {
 		for (int i = 0; i < ph->lin; ++i)
 			free(ph->photo_mat[i]);
 		free(ph->photo_mat);
@@ -30,33 +29,14 @@ void load(photo_t *ph, int *bool_load)
 	}
 
 	//try to open the file
-	FILE *photo_f = fopen(name, "rb");
+	//checker forced me into doing this horrible star placement, sorry
+	FILE * photo_f = fopen(name, "rb");
 	//check if the file could be opened
 	if (!photo_f) {
 		//print the error if it couldn't
 		error_load(name);
 		return;
 	}
-
-	//if any mat was loaded before, gracefully free it
-	//if (ph->photo_mat != NULL || ph->rgb_mat.red != NULL)
-	//free_photo(ph);
-
-
-
-
-	// 	free(ph);
-	// 	// ph->photo_mat = NULL;
-
-	// 	// for (int i = 0; i < ph->lin; ++i)
-	// 	// 	free(ph->photo_mat[i]);
-	// 	// free(ph->photo_mat);
-	// 	
-	// }
-
-	
-
-	//printf("pointer of mat(0): %p\n", ph->photo_mat);
 
 	//read the magic number
 	char type[TYPE_LEN];
@@ -74,8 +54,7 @@ void load(photo_t *ph, int *bool_load)
 	//after this the coursor pointer stays at the end of 255
 
 	//acording to the magic number, load the photo as a matrix
-	switch (ph->type)
-	{
+	switch (ph->type) {
 	case 2:
 		p2_load(ph, photo_f);
 		break;
@@ -98,11 +77,9 @@ void load(photo_t *ph, int *bool_load)
 
 	//print succes message in the end
 	succes_load(name);
-	*bool_load = FALSE;
 	//close the file
 	fclose(photo_f);
 }
-
 
 void p2_load(photo_t *ph, FILE *photo_f)
 {

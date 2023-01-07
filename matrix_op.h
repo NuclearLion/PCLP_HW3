@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _MATRIX_OP_H_
 #define _MATRIX_OP_H_
 
@@ -7,7 +7,7 @@
 
 #include "photo_type.h"
 
-//shamelessly reused my own functions from my_octave because my code is 
+//shamelessly reused my own functions from my_octave because my code is
 //easily reusable and scalable
 
 //alloc memory for a new matrix

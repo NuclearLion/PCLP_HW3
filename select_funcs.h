@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _SELECT_FUNCS_H_
 #define _SELECT_FUNCS_H_
 

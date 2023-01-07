@@ -1,11 +1,9 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "utils.h"
-
 
 int hash_command(char *command)
 {
-	
-	if(strcmp(command, "LOAD") == 0)
+	if (strcmp(command, "LOAD") == 0)
 		return 0;
 	if (strcmp(command, "SELECT") == 0)
 		return 1;
@@ -90,19 +88,30 @@ int is_color(int type)
 	return 1;
 }
 
-void free_photo(photo_t *ph)
-{
-	if (ph->photo_mat)
-		free(ph->photo_mat);
-	if (ph->rgb_mat.red) {
-		free(ph->rgb_mat.red);
-		free(ph->rgb_mat.green);
-		free(ph->rgb_mat.blue);
-	}
-}
-
 void trash_invalid(void)
 {
 	char trash_[TRASH_LEN];
 	fgets(trash_, TRASH_LEN, stdin);
+}
+
+int check_load(photo_t *ph)
+{
+	if (!ph->photo_mat && !ph->rgb_mat.red)
+		return 1;
+	return 0;
+}
+
+void init_photo(photo_t *loaded_ph)
+{
+	loaded_ph->photo_mat = NULL;
+	loaded_ph->rgb_mat.red = NULL;
+	loaded_ph->rgb_mat.green = NULL;
+	loaded_ph->rgb_mat.blue = NULL;
+	loaded_ph->lin = 0;
+	loaded_ph->col = 0;
+	loaded_ph->bot_x = 0;
+	loaded_ph->bot_y = 0;
+	loaded_ph->top_x = 0;
+	loaded_ph->top_y = 0;
+	loaded_ph->type = 0;
 }

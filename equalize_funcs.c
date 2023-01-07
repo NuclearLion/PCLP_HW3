@@ -1,8 +1,9 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "equalize_funcs.h"
 
 void equalize(photo_t *ph)
 {
-	if (ph->photo_mat == NULL && ph->rgb_mat.red == NULL) {
+	if (check_load(ph)) {
 		error_no_load();
 		return;
 	}

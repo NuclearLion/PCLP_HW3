@@ -1,4 +1,4 @@
-//Dan-Dominic Staicu 311CA 2023
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "load_funcs.h"
 #include "save_funcs.h"
 #include "select_funcs.h"
@@ -14,30 +14,18 @@
 int main(void)
 {
 	//declare the main memory where the photo and it's atributes are loaded
-	photo_t loaded_ph;
+	photo_t loaded_ph; //loaded photo
 	//init the matrix as NULL in order to check if anything was loaded
-	loaded_ph.photo_mat = NULL;
-	loaded_ph.rgb_mat.red = NULL;
-	loaded_ph.rgb_mat.green = NULL;
-	loaded_ph.rgb_mat.blue = NULL;
-	loaded_ph.lin = 0;
-	loaded_ph.col = 0;
-	loaded_ph.bot_x = 0;
-	loaded_ph.bot_y = 0;
-	loaded_ph.top_x = 0;
-	loaded_ph.top_y = 0;
-	loaded_ph.type = 0;
-
-	int bool_load = FALSE;
+	init_photo(&loaded_ph);
 
 	char command[COMMAND_LENGTH];
 	scanf("%s", command);
 
-	while(TRUE) {
+	while (TRUE) {
 		//"hash" the command into a code in order to be able to use switch
 		switch (hash_command(command)) {
 		case 0:
-			load(&loaded_ph, &bool_load);
+			load(&loaded_ph);
 			break;
 		case 1:
 			select(&loaded_ph);
@@ -78,6 +66,5 @@ int main(void)
 	return 0;
 }
 
-// diff -w -y ./tasks/image_editor/tests/00-image_editor/00-image_editor.ref ./tasks/image_editor/tests/00-image_editor/00-image_editor.out
-
-// watch test 28 for memups valgrind
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
+//check_load(ph)

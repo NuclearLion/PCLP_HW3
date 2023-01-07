@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "rotate_funcs.h"
 
 void rotate(photo_t *ph)
@@ -22,11 +23,11 @@ void rotate(photo_t *ph)
 	int rot_cnt = angle / 90;
 
 	//if its selected the whole photo
-	if (ph->top_x == 0 && ph->top_y == 0 && 
+	if (ph->top_x == 0 && ph->top_y == 0 &&
 		ph->bot_x + 1 == ph->lin && ph->bot_y + 1 == ph->col) {
 		//rotate it even if it's not square
 		if (angle > 0) {
-			for (int i = 0; i < rot_cnt; ++i) 
+			for (int i = 0; i < rot_cnt; ++i)
 				if (is_color(ph->type)) {
 					rotate_all(ph, &ph->rgb_mat.red, POS, FALSE);
 					rotate_all(ph, &ph->rgb_mat.green, POS, FALSE);
@@ -86,7 +87,7 @@ void overwrite_rotate(photo_t *ph, int **mat, int lin, int col, int dir)
 	int **rotated;
 	if (dir > 0)
 		rotated = rotate_right(ph, mat, lin, col);
-	else 
+	else
 		rotated = rotate_left(ph, mat, lin, col);
 
 	int new_i = 0;
@@ -121,7 +122,7 @@ int **rotate_right(photo_t *ph, int **mat, int lin, int col)
 				--new_j;
 			}
 		}
-	
+
 	return rotated;
 }
 
@@ -149,12 +150,12 @@ void rotate_all(photo_t *ph, int ***mat, int dir, int ch)
 	int **rotated;
 	if (dir > 0)
 		rotated = rot_all_r(ph, *mat, ph->lin, ph->col);
-	else 
+	else
 		rotated = rot_all_l(ph, *mat, ph->lin, ph->col);
 
 	free_mat(*mat, ph->lin);
 	*mat = rotated;
-	
+
 	//swap lines and cols (only if its bw or the last color channel
 	//to be rotated)
 	if (ch == 1) { //TODO swap

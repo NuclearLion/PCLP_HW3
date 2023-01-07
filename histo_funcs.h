@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _HISTO_FUNCS_H_
 #define _HISTO_FUNCS_H_
 

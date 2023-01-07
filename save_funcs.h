@@ -6,6 +6,7 @@
 #include "photo_type.h"
 #include "utils.h"
 #include "errors.h"
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #include "succes.h"
 
 #define FILENAME_LEN 258
