@@ -89,6 +89,9 @@ void p2_load(photo_t *ph, FILE *photo_f)
 {
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
 
+	//check if memory could be allocated
+	check_load_alloc(ph);
+
 	//read the actual values as text and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j)
@@ -102,6 +105,9 @@ void p3_load(photo_t *ph, FILE *photo_f)
 	ph->rgb_mat.green = alloc_matrix(ph->lin, ph->col);
 	ph->rgb_mat.blue = alloc_matrix(ph->lin, ph->col);
 
+	//check if memory could be allocated
+	check_load_alloc(ph);
+
 	//read the actual values as text and load them in memory
 	for (int i = 0; i < ph->lin; ++i)
 		for (int j = 0; j < ph->col; ++j) {
@@ -114,6 +120,9 @@ void p3_load(photo_t *ph, FILE *photo_f)
 void p5_load(photo_t *ph, FILE *photo_f)
 {
 	ph->photo_mat = alloc_matrix(ph->lin, ph->col);
+
+	//check if memory could be allocated
+	check_load_alloc(ph);
 
 	//step over the endline after the 255 max value
 	char garbage;
@@ -131,6 +140,9 @@ void p6_load(photo_t *ph, FILE *photo_f)
 	ph->rgb_mat.red = alloc_matrix(ph->lin, ph->col);
 	ph->rgb_mat.green = alloc_matrix(ph->lin, ph->col);
 	ph->rgb_mat.blue = alloc_matrix(ph->lin, ph->col);
+
+	//check if memory could be allocated
+	check_load_alloc(ph);
 
 	//step over the endline after the 255 max value
 	char garbage;

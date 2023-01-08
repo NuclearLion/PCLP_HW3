@@ -1,5 +1,8 @@
 Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 
+~Hinds' Law Of Computer Programming~
+~3. If a program is useless, it will have to be documented.~
+
 IMAGE EDITOR
 ~Murphy's First Law:  Anything that can go wrong will go wrong.~
 
@@ -177,10 +180,6 @@ it's applied only once if the photo is bw and 3 times if the photo is color
 	The complexity of CROP is O(sel_lin * sel_col)
 
 
-~Weinberg's Second Law: If builders built buildings the way programmers write
-programs, then the first woodpecker that came along would destroy
-civilization.~
-
 	%Can APPLY an effect over a selection in a color photo
 
 *4 types of effect
@@ -236,15 +235,16 @@ matrix(es)
 	
 
 	PROGRAMS' STRUCTURE
-~Murphy's Eleventh Law:  It is impossible to make anything foolproof because 
-fools are so ingenious.~
+~Weinberg's Second Law: If builders built buildings the way programmers write
+programs, then the first woodpecker that came along would destroy
+civilization.~
 
 	- image_editor.c is the main function
 	- every command has it's own .c with it's functions and it's own .h
 	- errors.c/.h has every error message inside the program
 	- succes.c/.h has every succes message inside the program
 	- matrix_op.c/.h has the most used functions for matrix memory (alloc and 
-	free)
+	free) and some checks for devensive programming
 	- utils.c/.h contain some useful functions
 	- photo_type.h contains the definition of the structs
 
@@ -410,5 +410,10 @@ serve as a bad example.~
 commit 31: struct point
 	*added a struct to define a 2D point
 	~Murphy's Thirteenth Law:  Every solution breeds new problems.~
+
+commit 32: Defensive alloc
+	*added more defensive programming at memory allocation
+~Murphy's Eleventh Law:  It is impossible to make anything foolproof because
+fools are so ingenious.~
 
 19, 20, 21, 22, 23, 24, 25, 28, 30, 32

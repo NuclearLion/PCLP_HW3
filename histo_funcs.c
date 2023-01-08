@@ -50,6 +50,13 @@ void histogram(photo_t *ph)
 	int *bin_val;
 	bin_val = calloc(bins, sizeof(int));
 
+	if (!bin_val) {
+		fprintf(stderr, "calloc failed at bin_val\n");
+		bin_val = NULL;
+		free_photo(ph);
+		exit(1);
+	}
+
 	int bin_index = 0;
 	int val_max = 0;
 	for (int i = 0; i < VALS; i += bin_step) {

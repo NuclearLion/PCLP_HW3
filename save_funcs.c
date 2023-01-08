@@ -51,7 +51,7 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 	FILE *photo_f = fopen(new_f_name, "wb");
 	if (!photo_f) {
 		printf("something went wrong while creating the save file\n");
-		return;
+		free_photo(ph);
 	}
 
 	//write the magic number acording to SAVE instruction

@@ -11,13 +11,7 @@ void exit_editor(photo_t *ph)
 	}
 
 	//else gratefully free used memory and exit the program
-	//with suucces status
-	if (ph->photo_mat)
-		free_mat(ph->photo_mat, ph->lin);
-	if (ph->rgb_mat.red) {
-		free_mat(ph->rgb_mat.red, ph->lin);
-		free_mat(ph->rgb_mat.green, ph->lin);
-		free_mat(ph->rgb_mat.blue, ph->lin);
-	}
+	//with succes status
+	free_photo(ph);
 	exit(0);
 }

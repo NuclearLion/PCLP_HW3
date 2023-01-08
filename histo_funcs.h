@@ -9,6 +9,7 @@
 #include "photo_type.h"
 #include "errors.h"
 #include "utils.h"
+#include "matrix_op.h"
 
 #define VALS 256
 #define ZERO 0

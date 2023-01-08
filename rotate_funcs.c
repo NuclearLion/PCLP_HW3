@@ -120,6 +120,13 @@ int **rotate_right(photo_t *ph, int **mat, int side)
 {
 	int **rotated = alloc_matrix(side, side);
 
+	if (!rotated) {
+		fprintf(stderr, "Rotated right could not pe allocated\n");
+		rotated = NULL;
+		free_photo(ph);
+		exit(1);
+	}
+
 	//start the parameters from the top right corner of the new matrix
 	//and go down - left with filling it
 	int new_i = 0;
@@ -141,6 +148,13 @@ int **rotate_right(photo_t *ph, int **mat, int side)
 int **rotate_left(photo_t *ph, int **mat, int side)
 {
 	int **rotated = alloc_matrix(side, side);
+
+	if (!rotated) {
+		fprintf(stderr, "Rotated left could not pe allocated\n");
+		rotated = NULL;
+		free_photo(ph);
+		exit(1);
+	}
 
 	//start the parameters from bottom left corner of the new matrix
 	//and go up - right with filling it
@@ -185,6 +199,13 @@ int **rot_all_r(photo_t *ph, int **mat, int lin, int col)
 	//the number of columns and lines are inversed after one rotation
 	int **rotated = alloc_matrix(col, lin);
 
+	if (!rotated) {
+		fprintf(stderr, "Rotated all right could not pe allocated\n");
+		rotated = NULL;
+		free_photo(ph);
+		exit(1);
+	}
+
 	//start the parameters from the top right corner of the new matrix
 	//and go down - left with filling it
 	int new_i = 0;
@@ -206,6 +227,13 @@ int **rot_all_l(photo_t *ph, int **mat, int lin, int col)
 {
 	//the number of columns and lines are inversed after one rotation
 	int **rotated = alloc_matrix(col, lin);
+
+	if (!rotated) {
+		fprintf(stderr, "Rotated all left could not pe allocated\n");
+		rotated = NULL;
+		free_photo(ph);
+		exit(1);
+	}
 
 	//start the parameters from bottom left corner of the new matrix
 	//and go up - right with filling it

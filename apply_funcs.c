@@ -131,6 +131,13 @@ void kern(int kernel[][3], int **color_ch, photo_t *ph, int coef)
 	//call func to create new mat by maths
 	int **effect = apply_kern(ph, color_ch, kernel, sel_lin, sel_col, coef);
 
+	if (!effect) {
+		fprintf(stderr, "could not alloc effect in kern()\n");
+		effect = NULL;
+		free_photo(ph);
+		exit(1);
+	}
+
 	//overwrite ph
 	int ef_i = 0;
 	int ef_j = 0;
@@ -156,6 +163,12 @@ int **apply_kern(photo_t *ph, int **ch, int ker[][3],
 				 int lin, int col, int coef)
 {
 	int **result = alloc_matrix(lin, col);
+
+	if (!result) {
+		fprintf(stderr, "result alloc failed in apply_kern()\n");
+		result = NULL;
+		return NULL;
+	}
 
 	int res_i = 0;
 	int res_j = 0;

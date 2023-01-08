@@ -1,3 +1,4 @@
+// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
 #ifndef _SAVE_FUNCS_H_
 #define _SAVE_FUNCS_H_
 
@@ -6,7 +7,7 @@
 #include "photo_type.h"
 #include "utils.h"
 #include "errors.h"
-// Copyright 2023 311CA Dan-Dominic Staicu <dando.ds11@gmail.com>
+#include "matrix_op.h"
 #include "succes.h"
 
 #define FILENAME_LEN 258

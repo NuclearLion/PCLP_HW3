@@ -17,12 +17,39 @@ void crop(photo_t *ph)
 	//free the old mat(s) and point to the new one(s)
 	if (!is_color(ph->type)) {
 		int **aux_mat = crop_mat(ph->photo_mat, ph, new_lin, new_col);
+
+		if (!aux_mat) {
+			fprintf(stderr, "aux mat could not be allocated from crop\n");
+			free_photo(ph);
+			exit(1);
+		}
+
 		free_mat(ph->photo_mat, ph->lin);
 		ph->photo_mat = aux_mat;
 	} else {
 		int **aux_r = crop_mat(ph->rgb_mat.red, ph, new_lin, new_col);
+		if (!aux_r) {
+			fprintf(stderr, "aux red could not be allocated in crop\n");
+			free_photo(ph);
+			exit(1);
+		}
+
 		int **aux_g = crop_mat(ph->rgb_mat.green, ph, new_lin, new_col);
+		if (!aux_g) {
+			fprintf(stderr, "aux green could not be allocated in crop\n");
+			free_mat(aux_r, new_lin);
+			free_photo(ph);
+			exit(1);
+		}
+
 		int **aux_b = crop_mat(ph->rgb_mat.blue, ph, new_lin, new_col);
+		if (!aux_b) {
+			fprintf(stderr, "aux blue could not be allocated in crop\n");
+			free_mat(aux_r, new_lin);
+			free_mat(aux_g, new_lin);
+			free_photo(ph);
+			exit(1);
+		}
 
 		free_mat(ph->rgb_mat.red, ph->lin);
 		free_mat(ph->rgb_mat.green, ph->lin);
@@ -48,6 +75,12 @@ int **crop_mat(int **mat, photo_t *ph, int new_lin, int new_col)
 {
 	// alloc a new memory area
 	int **cropped = alloc_matrix(new_lin, new_col);
+
+	if (!cropped) {
+		fprintf(stderr, "Couldn't alloc cropped mat memory\n");
+		cropped = NULL;
+		return NULL;
+	}
 
 	// init the new coordinates
 	int new_i = 0;
