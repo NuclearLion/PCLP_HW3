@@ -93,13 +93,13 @@ void save_f(photo_t *ph, char *new_f_name, int bool_ascii)
 		if (!is_color(ph->type))
 			for (int i = 0; i < ph->lin; ++i)
 				for (int j = 0; j < ph->col; ++j)
-					fwrite(&ph->photo_mat[i][j], 1, 1, photo_f);
+					fwrite(&ph->photo_mat[i][j], BYTE, BYTE, photo_f);
 		else
 			for (int i = 0; i < ph->lin; ++i) {
 				for (int j = 0; j < ph->col; ++j) {
-					fwrite(&ph->rgb_mat.red[i][j], 1, 1, photo_f);
-					fwrite(&ph->rgb_mat.green[i][j], 1, 1, photo_f);
-					fwrite(&ph->rgb_mat.blue[i][j], 1, 1, photo_f);
+					fwrite(&ph->rgb_mat.red[i][j], BYTE, BYTE, photo_f);
+					fwrite(&ph->rgb_mat.green[i][j], BYTE, BYTE, photo_f);
+					fwrite(&ph->rgb_mat.blue[i][j], BYTE, BYTE, photo_f);
 				}
 			}
 

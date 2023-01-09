@@ -15,6 +15,7 @@
 #define TRUE 1
 #define FALSE 0
 #define INTERPRET_COLS 3
+#define BYTE 1
 
 //main call of SAVE command
 void save(photo_t *ph);

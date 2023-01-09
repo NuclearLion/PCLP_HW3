@@ -29,11 +29,11 @@ void rotate(photo_t *ph)
 			for (int i = 0; i < rot_cnt; ++i)
 				//if it's color, every channel has to be rotated
 				if (is_color(ph->type)) {
-					rotate_all(ph, &ph->rgb_mat.red, POS, FALSE);
-					rotate_all(ph, &ph->rgb_mat.green, POS, FALSE);
-					rotate_all(ph, &ph->rgb_mat.blue, POS, TRUE);
+					rotate_all(ph, &ph->rgb_mat.red, rot_all_r, FALSE);
+					rotate_all(ph, &ph->rgb_mat.green, rot_all_r, FALSE);
+					rotate_all(ph, &ph->rgb_mat.blue, rot_all_r, TRUE);
 				} else {
-					rotate_all(ph, &ph->photo_mat, POS, TRUE);
+					rotate_all(ph, &ph->photo_mat, rot_all_r, TRUE);
 				}
 		} else {
 			//make the count positive
@@ -41,11 +41,11 @@ void rotate(photo_t *ph)
 			////rotate to left the image 90 degrees for rot_cnt times
 			for (int i = 0; i < rot_cnt; ++i)
 				if (is_color(ph->type)) {
-					rotate_all(ph, &ph->rgb_mat.red, NEG, FALSE);
-					rotate_all(ph, &ph->rgb_mat.green, NEG, FALSE);
-					rotate_all(ph, &ph->rgb_mat.blue, NEG, TRUE);
+					rotate_all(ph, &ph->rgb_mat.red, rot_all_l, FALSE);
+					rotate_all(ph, &ph->rgb_mat.green, rot_all_l, FALSE);
+					rotate_all(ph, &ph->rgb_mat.blue, rot_all_l, TRUE);
 				} else {
-					rotate_all(ph, &ph->photo_mat, NEG, TRUE);
+					rotate_all(ph, &ph->photo_mat, rot_all_l, TRUE);
 				}
 		}
 		succes_rotate(angle);
@@ -65,37 +65,35 @@ void rotate(photo_t *ph)
 	if (angle > 0) {
 		for (int i = 0; i < rot_cnt; ++i)
 			if (is_color(ph->type)) {
-				overwrite_rotate(ph, ph->rgb_mat.red, sel_lin, POS);
-				overwrite_rotate(ph, ph->rgb_mat.green, sel_lin, POS);
-				overwrite_rotate(ph, ph->rgb_mat.blue, sel_lin, POS);
+				overwrite_rotate(ph, ph->rgb_mat.red, sel_lin, rotate_right);
+				overwrite_rotate(ph, ph->rgb_mat.green, sel_lin, rotate_right);
+				overwrite_rotate(ph, ph->rgb_mat.blue, sel_lin, rotate_right);
 			} else {
-				overwrite_rotate(ph, ph->photo_mat, sel_lin, POS);
+				overwrite_rotate(ph, ph->photo_mat, sel_lin, rotate_right);
 			}
 	} else {
 		rot_cnt *= -1;
 		for (int i = 0; i < rot_cnt; ++i)
 			if (is_color(ph->type)) {
-				overwrite_rotate(ph, ph->rgb_mat.red, sel_lin, NEG);
-				overwrite_rotate(ph, ph->rgb_mat.green, sel_lin, NEG);
-				overwrite_rotate(ph, ph->rgb_mat.blue, sel_lin, NEG);
+				overwrite_rotate(ph, ph->rgb_mat.red, sel_lin, rotate_left);
+				overwrite_rotate(ph, ph->rgb_mat.green, sel_lin, rotate_left);
+				overwrite_rotate(ph, ph->rgb_mat.blue, sel_lin, rotate_left);
 			} else {
-				overwrite_rotate(ph, ph->photo_mat, sel_lin, NEG);
+				overwrite_rotate(ph, ph->photo_mat, sel_lin, rotate_left);
 			}
 	}
 	succes_rotate(angle);
 }
 
-//overwrite the old matrix with the rotated one
-void overwrite_rotate(photo_t *ph, int **mat, int side, int dir)
-{
-	int **rotated;
+//TODO create function with function as parameter
 
+//overwrite the old matrix with the rotated one
+void overwrite_rotate(photo_t *ph, int **mat, int side,
+					  int **(*dir)(photo_t *, int **, int))
+{
 	//if the direction parameter is positive, the rotation must be done
 	//to right, otherwise to the left
-	if (dir > 0)
-		rotated = rotate_right(ph, mat, side);
-	else
-		rotated = rotate_left(ph, mat, side);
+	int **rotated = dir(ph, mat, side);
 
 	//overwrite the selected area from the old matrix
 	//with the values inside the new one
@@ -173,13 +171,10 @@ int **rotate_left(photo_t *ph, int **mat, int side)
 }
 
 //create a new rotated matrix of the whole photo
-void rotate_all(photo_t *ph, int ***mat, int dir, int ch)
+void rotate_all(photo_t *ph, int ***mat,
+				int **(*dir)(photo_t *, int **, int, int), int ch)
 {
-	int **rotated;
-	if (dir > 0)
-		rotated = rot_all_r(ph, *mat, ph->lin, ph->col);
-	else
-		rotated = rot_all_l(ph, *mat, ph->lin, ph->col);
+	int **rotated = dir(ph, *mat, ph->lin, ph->col);
 
 	//free the old matrix and point to the new memory area
 	free_mat(*mat, ph->lin);

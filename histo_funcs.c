@@ -19,7 +19,6 @@ void histogram(photo_t *ph)
 		error_invalid();
 		return;
 	}
-
 	//check if there are more than 2 parameters
 	if (res_scan == 2) {
 		char trash[TRASH_LEN];
@@ -45,7 +44,6 @@ void histogram(photo_t *ph)
 
 	//calculate how many pixels there are in a bin
 	int bin_step = VALS / bins;
-
 	//create the bins and alloc memory for them (already inited with 0)
 	int *bin_val;
 	bin_val = calloc(bins, sizeof(int));

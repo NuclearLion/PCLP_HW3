@@ -15,13 +15,12 @@ image_editor: image_editor.c
 	$(CC) $(CFLAGS) $(FILES) -g -o image_editor
 
 pack:
-	zip -FSr 311CAStaicuDan-Dominic_Tema3.zip README Makefile *.c *.h
+	zip -FSr 311CA_StaicuDan-Dominic_Tema3.zip README Makefile *.c *.h
 
 clean:
 	rm -rf $(TARGET)
 
 run:
-	./image_editor < commands.in
-# > out.ppm
+	./image_editor
 
 .PHONY: pack clean

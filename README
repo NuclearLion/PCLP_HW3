@@ -11,7 +11,7 @@ IMAGE EDITOR
 *Can read/write text (P2, P3) or binary (P5, P6) file formats 
 *Has text inteface for transforming these photo files (only .pgm, .ppm)
 
-It has the following functions:
+It has the following functions implemented byh commands:
 
 
 	%LOAD a photo as a matrix in memory; if LOAD was inputed, the program tries
@@ -222,7 +222,6 @@ write the int value from the matrix on one byte;
 	The complexity of SAVE is O(lin * col)
 
 
-
 	%(finally)EXIT the program
 
 *prints error message if no photo was loaded, but anyway exits it
@@ -416,4 +415,5 @@ commit 32: Defensive alloc
 ~Murphy's Eleventh Law:  It is impossible to make anything foolproof because
 fools are so ingenious.~
 
-19, 20, 21, 22, 23, 24, 25, 28, 30, 32
+commit 33: ROTATE refactor
+	*created function with parameter as function at ROTATE command
